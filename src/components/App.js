@@ -11,9 +11,14 @@ import MoviesList from "./pages/MoviesList"
 
 
 function App() {
+  const baseUrl = "http://localhost:3000"
+
   const [genres, setGenres] = useState([])
   const [initialMovies, setInitialMovies] = useState([])
-  // console.log(initialMovies)
+  const [currentUser, setCurrentUser] = useState(null)
+  const [username, setUsername] = useState("")
+  const [email, setEmail] = useState("")
+
 
   useEffect(() => {
     fetch("https://api.themoviedb.org/3/genre/movie/list?api_key=99fdd78beedc847a99f420187e092842&language=en-US")
@@ -49,7 +54,7 @@ function App() {
             <Login />
           </Route>
           <Route exact path="/signup">
-            <Signup />
+            <Signup baseUrl={baseUrl} username={username} setUsername={setUsername} email={email} setEmail={setEmail} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
           </Route>
           <Route exact path="/">
             <Explore initialMovies={initialMovies}/>
