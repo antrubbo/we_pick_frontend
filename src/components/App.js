@@ -18,6 +18,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null)
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
+  const [errors, setErrors] = useState("")
 
 
   useEffect(() => {
@@ -34,12 +35,17 @@ function App() {
       })
   }, [])
 
+  function onLogoutClick(){ 
+    setCurrentUser(null)
+    alert("See ya next time!")
+  }
+
   return (
     <div className="App">
-      <Header />
+      <Header currentUser={currentUser} onLogoutClick={onLogoutClick}/>
         <Switch>
-          <Route exact path="/account/:id">
-            <Account />
+          <Route exact path="/user/:id">
+            <Account baseUrl={baseUrl} username={username} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
           </Route>
           <Route exact path="/user/:id/movieslist/:id">
             <MoviesList />
@@ -51,10 +57,10 @@ function App() {
             <MakePick genres={genres}/>
           </Route>
           <Route exact path="/login">
-            <Login />
+            <Login baseUrl={baseUrl} currentUser={currentUser} setCurrentUser={setCurrentUser} email={email} setEmail={setEmail} errors={errors} setErrors={setErrors}/>
           </Route>
           <Route exact path="/signup">
-            <Signup baseUrl={baseUrl} username={username} setUsername={setUsername} email={email} setEmail={setEmail} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+            <Signup baseUrl={baseUrl} username={username} setUsername={setUsername} email={email} setEmail={setEmail} currentUser={currentUser} setCurrentUser={setCurrentUser} errors={errors} setErrors={setErrors}/>
           </Route>
           <Route exact path="/">
             <Explore initialMovies={initialMovies}/>

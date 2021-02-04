@@ -1,6 +1,6 @@
 import {useHistory} from "react-router-dom"
 
-function Signup({baseUrl, currentUser, setCurrentUser, username, setUsername, email, setEmail}) {
+function Signup({baseUrl, currentUser, setCurrentUser, username, setUsername, email, setEmail, errors, setErrors}) {
     const history = useHistory()
 
     const signupFormData={
@@ -24,17 +24,26 @@ function Signup({baseUrl, currentUser, setCurrentUser, username, setUsername, em
         })
         .then(r => r.json())
         .then(userObj => {
-            setCurrentUser(userObj)
-            history.push(`/account/${userObj.id}`)
+            if(userObj.errors) {
+                setErrors(userObj.errors)
+                setUserStateToQuotes()
+              } else {
+                alert (`You've been successfully signed up, ${userObj.username}!`)
+                setCurrentUser(userObj)
+                setErrors("")
+                history.push(`/user/${userObj.id}`)
+              }
         })
     }
 
     return (
         <div className="signup-form">
             <h1>Signup Page</h1>
+            {errors !== "" ? errors.map(error => <p key={error} style={{ color: 'red' }}>*{error}</p>) : null}
             <form onSubmit={onFormSubmit}>
                 <input type="text" placeholder="Username.." value={username} onChange={e => setUsername(e.target.value)}></input>
                 <input type="text" placeholder="Email.." value={email} onChange={e => setEmail(e.target.value)}></input>
+                <input type="password" placeholder="Password..." ></input>
                 <input type="submit"></input>
             </form>
         </div>

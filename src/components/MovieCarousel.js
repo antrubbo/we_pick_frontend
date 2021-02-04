@@ -3,7 +3,7 @@ import Carousel from 'react-bootstrap/Carousel'
 function MovieCarousel ({initialMovies}) {
 
   const mappedMovies = initialMovies.map(m => {
-    return <Carousel.Item interval={1000} key={m.id}>
+    return <Carousel.Item interval={5000} key={m.id}>
             <img
               className="carousel-movie-poster"
               src={m.poster_path}
