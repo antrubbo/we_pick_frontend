@@ -1,8 +1,12 @@
+import MovieCarousel from "../MovieCarousel"
 
+function Explore({initialMovies}) {
+    console.log(initialMovies)
 
-function Explore() {
     return (
-        <h1>Explore Content Page</h1>
+        <div className="carousel-div">
+            <MovieCarousel initialMovies={initialMovies}/>
+        </div>
     )
 }
 
