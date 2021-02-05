@@ -1,24 +1,15 @@
-import {useHistory, useParams} from "react-router-dom"
-import {useEffect} from "react"
-import MoviesList from "./MoviesList"
+import {useHistory} from "react-router-dom"
+import{useState} from "react"
+// import {useEffect} from "react"
+// import MoviesList from "./MoviesList"
 
 function Account({baseUrl, currentUser, setCurrentUser}) {
+    const [listId, setListId] = useState(currentUser.lists[0].id)
     const history = useHistory()
-    const params = useParams()
-    console.log(params)
-    console.log(currentUser)
-
-    useEffect(() => {
-        fetch(`${baseUrl}/users/${currentUser.id}`)
-            .then(r => r.json())
-            .then(newUser => {
-                setCurrentUser(newUser)
-            })
-    }, [])
     
     function onDeleteClick() {
         alert("Delete Account - Are you sure?")
-        fetch(`http://localhost:3000/users/${currentUser.id}`, {
+        fetch(`${baseUrl}/users/${currentUser.id}`, {
             method: "DELETE"
         })
         .then(r=> r.json())
@@ -30,7 +21,7 @@ function Account({baseUrl, currentUser, setCurrentUser}) {
     }
 
     function onViewMoviesClick() {
-        history.push(`/user/${currentUser.id}/movieslist/${currentUser.list.id}`)
+        history.push(`/user/${currentUser.id}/movieslist/${listId}`)
     }
 
     return (

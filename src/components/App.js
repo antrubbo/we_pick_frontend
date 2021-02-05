@@ -1,6 +1,6 @@
 import { Route, Switch } from "react-router-dom";
 import {useEffect, useState} from "react"
-import Header from "./Header"
+import Header from "./items/Header"
 import Signup from "./pages/Signup"
 import Login from "./pages/Login"
 import MakePick from "./pages/MakePick"
@@ -19,6 +19,7 @@ function App() {
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [errors, setErrors] = useState("")
+  const [clickedMovie, setClickedMovie] = useState([])
 
 
   useEffect(() => {
@@ -48,10 +49,10 @@ function App() {
             <Account baseUrl={baseUrl} username={username} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
           </Route>
           <Route exact path="/user/:id/movieslist/:id">
-            <MoviesList />
+            <MoviesList currentUser={currentUser}/>
           </Route>
           <Route exact path="/movie/:id">
-            <MoviePage />
+            <MoviePage clickedMovie={clickedMovie}/>
           </Route>
           <Route exact path="/compare">
             <MakePick genres={genres}/>
@@ -63,7 +64,7 @@ function App() {
             <Signup baseUrl={baseUrl} username={username} setUsername={setUsername} email={email} setEmail={setEmail} currentUser={currentUser} setCurrentUser={setCurrentUser} errors={errors} setErrors={setErrors}/>
           </Route>
           <Route exact path="/">
-            <Explore initialMovies={initialMovies}/>
+            <Explore initialMovies={initialMovies} clickedMovie={clickedMovie} setClickedMovie={setClickedMovie}/>
           </Route>
         </Switch>
     </div>

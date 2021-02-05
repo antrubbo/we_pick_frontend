@@ -1,8 +1,11 @@
+import {useParams} from "react-router-dom"
 
+function MoviesList({currentUser}) {
+    const params = useParams()
+    console.log(params)
 
-function MoviesList() {
     return (
-        <h1>MoviesList Page</h1>
+        <h1>{currentUser.lists[0].name}</h1>
     )
 }
 
