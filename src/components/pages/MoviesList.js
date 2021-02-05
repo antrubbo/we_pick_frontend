@@ -1,11 +1,12 @@
-import {useParams} from "react-router-dom"
+import UserMoviesList from "../items/UserMoviesList"
 
 function MoviesList({currentUser}) {
-    const params = useParams()
-    console.log(params)
 
     return (
-        <h1>{currentUser.lists[0].name}</h1>
+        <div className="movies-list-div">
+            <h1>{currentUser.lists[0].name}</h1>
+            <UserMoviesList currentUser={currentUser}/>
+        </div>
     )
 }
 
