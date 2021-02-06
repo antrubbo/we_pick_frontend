@@ -12,23 +12,17 @@ import MoviesList from "./pages/MoviesList"
 
 function App() {
   const baseUrl = "http://localhost:3000"
-
-  const [genres, setGenres] = useState([])
+  
   const [initialMovies, setInitialMovies] = useState([])
   const [currentUser, setCurrentUser] = useState(null)
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [errors, setErrors] = useState("")
-  const [clickedMovie, setClickedMovie] = useState([])
-
+  const [movieDetail, setMovieDetail] = useState([])
+  // const [clickedMovie, setClickedMovie] = useState([])
+  // const [movieDetailsId, setMovieDetailsId] = useState(0)
 
   useEffect(() => {
-    fetch("https://api.themoviedb.org/3/genre/movie/list?api_key=99fdd78beedc847a99f420187e092842&language=en-US")
-      .then(resp => resp.json())
-      .then(genreArray => {
-        setGenres(genreArray)
-      })
-
     fetch("http://localhost:3000/movies")
       .then(resp => resp.json())
       .then(moviesArray => {
@@ -49,13 +43,13 @@ function App() {
             <Account baseUrl={baseUrl} username={username} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
           </Route>
           <Route exact path="/user/:id/movieslist/:id">
-            <MoviesList currentUser={currentUser}/>
+            <MoviesList setMovieDetail={setMovieDetail} currentUser={currentUser}/>
           </Route>
           <Route exact path="/movie/:id">
-            <MoviePage clickedMovie={clickedMovie}/>
+            <MoviePage movieDetail={movieDetail}/>
           </Route>
           <Route exact path="/compare">
-            <MakePick genres={genres}/>
+            <MakePick />
           </Route>
           <Route exact path="/login">
             <Login baseUrl={baseUrl} currentUser={currentUser} setCurrentUser={setCurrentUser} email={email} setEmail={setEmail} errors={errors} setErrors={setErrors}/>
@@ -64,7 +58,7 @@ function App() {
             <Signup baseUrl={baseUrl} username={username} setUsername={setUsername} email={email} setEmail={setEmail} currentUser={currentUser} setCurrentUser={setCurrentUser} errors={errors} setErrors={setErrors}/>
           </Route>
           <Route exact path="/">
-            <Explore initialMovies={initialMovies} clickedMovie={clickedMovie} setClickedMovie={setClickedMovie}/>
+            <Explore baseUrl={baseUrl} initialMovies={initialMovies} setMovieDetail={setMovieDetail}/>
           </Route>
         </Switch>
     </div>

@@ -1,10 +1,10 @@
 import {useHistory} from "react-router-dom"
-import{useState} from "react"
+// import{useState} from "react"
 // import {useEffect} from "react"
 // import MoviesList from "./MoviesList"
 
 function Account({baseUrl, currentUser, setCurrentUser}) {
-    const [listId, setListId] = useState(currentUser.lists[0].id)
+    const movieListId = currentUser.lists[0].id
     const history = useHistory()
     
     function onDeleteClick() {
@@ -21,7 +21,7 @@ function Account({baseUrl, currentUser, setCurrentUser}) {
     }
 
     function onViewMoviesClick() {
-        history.push(`/user/${currentUser.id}/movieslist/${listId}`)
+        history.push(`/user/${currentUser.id}/movieslist/${movieListId}`)
     }
 
     return (

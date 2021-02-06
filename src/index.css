@@ -15,3 +15,8 @@ code {
 .carousel-movie-poster{
   width: 300px;
 }
+
+.carousel-caption h3{
+  color:grey
+}
+

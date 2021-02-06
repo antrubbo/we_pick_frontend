@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 function Header({currentUser, onLogoutClick}) {
  
     return (
-        <div>
+        <div className="header">
             <h1>WePick</h1>
             <nav className="navbar">
             <NavLink exact to="/" className="nav-button">Home</NavLink>

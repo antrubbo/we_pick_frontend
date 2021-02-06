@@ -1,12 +1,10 @@
 import MovieCarousel from "../items/MovieCarousel"
 
-function Explore({initialMovies, clickedMovie, setClickedMovie}) {
-    // const {id, title, description, search_id, poster_path, release_date, genres, runtime, video_key, homepage} = clickedMovie
-
+function Explore({initialMovies, setMovieDetail}) {
 
     return (
         <div className="carousel-div">
-            <MovieCarousel initialMovies={initialMovies} setClickedMovie={setClickedMovie}/>
+            <MovieCarousel initialMovies={initialMovies} setMovieDetail={setMovieDetail}/>
         </div>
     )
 }
