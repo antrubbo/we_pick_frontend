@@ -2,8 +2,6 @@ import { useEffect, useState } from "react"
 import Iframe from 'react-iframe'
 
 function MoviePage({baseUrl, movieDetail}) {
-    console.log(movieDetail)
-    // const {movie} = movieDetail
     const [movieView, setMovieView] = useState(null)
 
     useEffect(() => {
@@ -22,33 +20,33 @@ function MoviePage({baseUrl, movieDetail}) {
             })
         })
         .then(resp => resp.json())
-        .then(data => {
-            setMovieView(data)
+        .then(movieObj => {
+            setMovieView(movieObj)
         })
-    }, [])
+    }, [movieDetail.movie.id])
+
 
     if(movieView) {
-        console.log(movieView)
-        const {id, runtime, overview, title, poster_path,} = movieView
+        console.log("movieView: ", movieView)
+        const {id, genres, runtime, overview, title, videos, poster_path,} = movieView
         return (
             <div className="movie-details">
-                <img src={`https://themoviedb.org/t/p/w300${poster_path}`} alt={title}/>
+                <img src={`https://themoviedb.org/t/p/w300_and_h450_bestv2${poster_path}`} alt={movieView.title}/>
                 <h1>{title}</h1>
                 <h4><strong>Runtime: {runtime} minutes</strong></h4>
                 <h4><strong>Description:</strong></h4>
                 <p>{overview}</p>
                 <h4><strong>Genres:</strong></h4>
-                {/* <ul>
-                genres are returned as strings i.e. "567" need to be converted
+                <ul>
                     {genres.map(genre => <li>{genre.name}</li>)}
-                </ul> */}
-                {/* <Iframe 
+                </ul>
+                <Iframe 
                     width="750px" 
                     height="500px"
                     url={`https://www.youtube.com/embed/${videos.results[0].key}`} frameborder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                     title={id}
-                    position="relative"/> */}
+                    position="relative"/>
             </div> 
         )
     } else {
