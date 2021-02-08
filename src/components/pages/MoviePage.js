@@ -1,33 +1,26 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import Iframe from 'react-iframe'
 
-function MoviePage({baseUrl, movieDetail}) {
-    const [movieView, setMovieView] = useState(null)
+function MoviePage({baseUrl, detailsMovieId, movieView, setMovieView}) {
 
     useEffect(() => {
-        // fetch(`https://api.themoviedb.org/3/movie/${movie.search_id}?api_key=99fdd78beedc847a99f420187e092842&language=en-US&append_to_response=videos,recommendations`)
-        //     .then(resp => resp.json())
-        //     .then(movieObj => {
-        //         setMovieView(movieObj)
-        //     })
-        fetch(`http://localhost:3000/details`,{
+        fetch(`${baseUrl}/details`,{
             method: "POST", 
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                id: movieDetail.movie.id
+                id: detailsMovieId
             })
         })
         .then(resp => resp.json())
         .then(movieObj => {
             setMovieView(movieObj)
         })
-    }, [movieDetail.movie.id])
+    }, [detailsMovieId, setMovieView, baseUrl])
 
 
     if(movieView) {
-        console.log("movieView: ", movieView)
         const {id, genres, runtime, overview, title, videos, poster_path,} = movieView
         return (
             <div className="movie-details">
@@ -38,7 +31,7 @@ function MoviePage({baseUrl, movieDetail}) {
                 <p>{overview}</p>
                 <h4><strong>Genres:</strong></h4>
                 <ul>
-                    {genres.map(genre => <li>{genre.name}</li>)}
+                    {genres.map(genre => <li key={genre.id}>{genre.name}</li>)}
                 </ul>
                 <Iframe 
                     width="750px" 

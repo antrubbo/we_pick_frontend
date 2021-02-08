@@ -1,9 +1,8 @@
 import {useHistory} from "react-router-dom"
-// import{useState} from "react"
-// import {useEffect} from "react"
-// import MoviesList from "./MoviesList"
+import{useState} from "react"
 
-function Account({baseUrl, currentUser, setCurrentUser}) {
+function Account({baseUrl, currentUser, setCurrentUser, username, setUsername, email, setEmail}) {
+    const [clicked, setClicked] = useState(false)
     const movieListId = currentUser.lists[0].id
     const history = useHistory()
     
@@ -24,11 +23,41 @@ function Account({baseUrl, currentUser, setCurrentUser}) {
         history.push(`/user/${currentUser.id}/movieslist/${movieListId}`)
     }
 
+    function handleEdit() {
+        setClicked(true)
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault()
+        const formData = { 
+            username : username,
+            email: email }
+
+        fetch(`${baseUrl}/users/${currentUser.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(r => r.json())
+        .then(updatedUserObj => {
+            setCurrentUser(updatedUserObj)
+            setClicked(!clicked)
+        })
+    }
+
     return (
         <div className="account-page">
             <h1>Welcome back, {currentUser.username}!</h1>
-            <button onClick={onDeleteClick}>Delete Account</button>
-            <button onClick={onViewMoviesClick}>View My Movies!</button>
+            {clicked ? null : <button onClick={onViewMoviesClick}>View My Movies!</button>}
+            {clicked ? null : <button onClick={handleEdit}>Edit Account</button> }
+            {clicked ? <form onSubmit={handleSubmit}>  
+                    <input type="text" placeholder="Name.." value={username} onChange={evt => setUsername(evt.target.value)}></input>
+                    <input type="text" placeholder="Email Address.." value={email} onChange={evt => setEmail(evt.target.value)}></input>
+                    <input type="submit" value="Finalize Changes"></input>
+            </form> : null}
+            {clicked ? null : <button onClick={onDeleteClick}>Delete Account</button>}
         </div>
     )
 }

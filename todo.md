@@ -2,10 +2,11 @@ User:
 <!-- Create a User  (CREATE)-->
 <!-- Log In to that user's acct -->
 <!-- View User's acct page (READ)-->
- - Edit a User's acct info
+<!-- - Edit a User's acct info (UPDATE) -->
 <!-- Delete User's acct (DELETE) -->
- - View a User's movie list
+<!-- - View a User's movie list -->
  - Add movies to User's list
+<!-- - Delete movies from a User's list -->
 
 Compare:
  - Compare two Users' lists against each other's

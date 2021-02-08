@@ -12,15 +12,14 @@ import MoviesList from "./pages/MoviesList"
 
 function App() {
   const baseUrl = "http://localhost:3000"
-  
+
   const [initialMovies, setInitialMovies] = useState([])
   const [currentUser, setCurrentUser] = useState(null)
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [errors, setErrors] = useState("")
-  const [movieDetail, setMovieDetail] = useState([])
-  // const [clickedMovie, setClickedMovie] = useState([])
-  // const [movieDetailsId, setMovieDetailsId] = useState(0)
+  const [movieView, setMovieView] = useState(null)
+  const [detailsMovieId, setDetailsMovieId] = useState(0)
 
   useEffect(() => {
     fetch("http://localhost:3000/movies")
@@ -40,25 +39,31 @@ function App() {
       <Header currentUser={currentUser} onLogoutClick={onLogoutClick}/>
         <Switch>
           <Route exact path="/user/:id">
-            <Account baseUrl={baseUrl} username={username} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+            <Account baseUrl={baseUrl} username={username} setUsername={setUsername} email={email} setEmail={setEmail} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
           </Route>
+
           <Route exact path="/user/:id/movieslist/:id">
-            <MoviesList setMovieDetail={setMovieDetail} currentUser={currentUser}/>
+            <MoviesList baseUrl={baseUrl} setDetailsMovieId={setDetailsMovieId} currentUser={currentUser} />
           </Route>
+
           <Route exact path="/movie/:id">
-            <MoviePage movieDetail={movieDetail}/>
+            <MoviePage detailsMovieId={detailsMovieId} movieView={movieView} setMovieView={setMovieView} baseUrl={baseUrl}/>
           </Route>
+
           <Route exact path="/compare">
             <MakePick />
           </Route>
+
           <Route exact path="/login">
             <Login baseUrl={baseUrl} currentUser={currentUser} setCurrentUser={setCurrentUser} email={email} setEmail={setEmail} errors={errors} setErrors={setErrors}/>
           </Route>
+
           <Route exact path="/signup">
             <Signup baseUrl={baseUrl} username={username} setUsername={setUsername} email={email} setEmail={setEmail} currentUser={currentUser} setCurrentUser={setCurrentUser} errors={errors} setErrors={setErrors}/>
           </Route>
+
           <Route exact path="/">
-            <Explore baseUrl={baseUrl} initialMovies={initialMovies} setMovieDetail={setMovieDetail}/>
+            <Explore setDetailsMovieId={setDetailsMovieId} initialMovies={initialMovies} />
           </Route>
         </Switch>
     </div>

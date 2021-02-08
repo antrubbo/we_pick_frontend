@@ -1,6 +1,6 @@
 import {useHistory} from "react-router-dom"
 
-function Signup({baseUrl, currentUser, setCurrentUser, username, setUsername, email, setEmail, errors, setErrors}) {
+function Signup({baseUrl, setCurrentUser, username, setUsername, email, setEmail, errors, setErrors}) {
     const history = useHistory()
 
     const signupFormData={
@@ -15,7 +15,7 @@ function Signup({baseUrl, currentUser, setCurrentUser, username, setUsername, em
 
     function onFormSubmit(evt) {
         evt.preventDefault()
-        fetch("http://localhost:3000/users", {
+        fetch(`${baseUrl}/users`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
