@@ -53,10 +53,11 @@ function Account({baseUrl, currentUser, setCurrentUser, username, setUsername, e
             {clicked ? null : <button onClick={onViewMoviesClick}>View My Movies!</button>}
             {clicked ? null : <button onClick={handleEdit}>Edit Account</button> }
             {clicked ? <form onSubmit={handleSubmit}>  
-                    <input type="text" placeholder="Name.." value={username} onChange={evt => setUsername(evt.target.value)}></input>
-                    <input type="text" placeholder="Email Address.." value={email} onChange={evt => setEmail(evt.target.value)}></input>
-                    <input type="submit" value="Finalize Changes"></input>
-            </form> : null}
+                        <input type="text" placeholder="Name.." value={username} onChange={evt => setUsername(evt.target.value)}></input>
+                        <input type="text" placeholder="Email Address.." value={email} onChange={evt => setEmail(evt.target.value)}></input>
+                        <input type="submit" value="Finalize Changes"></input>
+                        <button onClick={() => setClicked(!clicked)}>Cancel</button>
+                      </form> : null}
             {clicked ? null : <button onClick={onDeleteClick}>Delete Account</button>}
         </div>
     )

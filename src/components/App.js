@@ -20,18 +20,47 @@ function App() {
   const [errors, setErrors] = useState("")
   const [movieView, setMovieView] = useState(null)
   const [detailsMovieId, setDetailsMovieId] = useState(0)
+  const [searchTerms, setSearchTerms] = useState("")
+  const [searchResults, setSearchResults] = useState(null)
+  const [modalShow, setModalShow] = useState(false)
+  console.log(searchResults)
+  // console.log(searchResults.table.results)
+
 
   useEffect(() => {
-    fetch("http://localhost:3000/movies")
+    fetch(`${baseUrl}/movies`)
       .then(resp => resp.json())
       .then(moviesArray => {
         setInitialMovies(moviesArray)
       })
   }, [])
 
+  // just to seed logged in user
+  useEffect(() => {
+    fetch(`${baseUrl}/users/1`)
+    .then(r => r.json())
+    .then(userObj => setCurrentUser(userObj))
+  }, [])
+
   function onLogoutClick(){ 
     setCurrentUser(null)
     alert("See ya next time!")
+  }
+
+  function handleSearch(searchTerms) {
+    fetch(`${baseUrl}/search`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        title: searchTerms})
+    })
+    .then(r => r.json())
+    .then(data => {
+      setSearchResults(data)
+    })
+    .then(setModalShow(true))
   }
 
   return (
@@ -63,7 +92,7 @@ function App() {
           </Route>
 
           <Route exact path="/">
-            <Explore setDetailsMovieId={setDetailsMovieId} initialMovies={initialMovies} />
+            <Explore setDetailsMovieId={setDetailsMovieId} initialMovies={initialMovies} searchTerms={searchTerms} setSearchTerms={setSearchTerms} handleSearch={handleSearch} searchResults={searchResults} modalShow={modalShow} setModalShow={setModalShow}/>
           </Route>
         </Switch>
     </div>

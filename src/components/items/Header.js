@@ -8,7 +8,7 @@ function Header({currentUser, onLogoutClick}) {
             <nav className="navbar">
             <NavLink exact to="/" className="nav-button">Home</NavLink>
 
-            {currentUser? <NavLink exact to="/user/:id" className="nav-button">My Account</NavLink> : null}
+            {currentUser? <NavLink exact to={`/user/${currentUser.id}`} className="nav-button">My Account</NavLink> : null}
 
             <NavLink exact to="/compare" className="nav-button">Compare</NavLink>
 
