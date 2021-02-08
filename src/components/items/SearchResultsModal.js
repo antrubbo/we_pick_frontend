@@ -4,13 +4,13 @@ import {Link} from "react-router-dom"
 function SearchResultsModal(props) {
     const {searchResults, onHide} = props
 
-    function onResultClick() {
-
+    function onResultClick(id) {
+        console.log(id)
     }
 
-    const mappedResults = searchResults.table.results.map(r => {
+    const mappedResults = searchResults.map(r => {
         return <li key={r.table.id}>
-            <Link onClick={onResultClick}>{r.table.title} | {r.table.release_date.slice(0,4)}</Link>
+            <Link to="" onClick={() => onResultClick(r.table.id)}>{r.table.title} {r.table.release_date ? `| ${r.table.release_date.slice(0,4)}` : null}</Link>
         </li>
     })
 

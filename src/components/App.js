@@ -23,8 +23,12 @@ function App() {
   const [searchTerms, setSearchTerms] = useState("")
   const [searchResults, setSearchResults] = useState(null)
   const [modalShow, setModalShow] = useState(false)
-  console.log(searchResults)
+  // console.log(searchResults)
   // console.log(searchResults.table.results)
+
+  if(searchResults) {
+    console.log(searchResults)
+  }
 
 
   useEffect(() => {
@@ -54,11 +58,12 @@ function App() {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        title: searchTerms})
+        title: searchTerms
+      })
     })
     .then(r => r.json())
     .then(data => {
-      setSearchResults(data)
+      setSearchResults(data.table.results)
     })
     .then(setModalShow(true))
   }

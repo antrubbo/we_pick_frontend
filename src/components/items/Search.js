@@ -3,6 +3,7 @@
 function Search({searchTerms, setSearchTerms, handleSearch}) {
 
     function onSearch(searchTerms) {
+        console.log(searchTerms)
         handleSearch(searchTerms)
     }
     
