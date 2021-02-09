@@ -1,16 +1,42 @@
 import Modal from 'react-bootstrap/Modal'
-import {Link} from "react-router-dom" 
+import {Link, useHistory} from "react-router-dom" 
 
 function SearchResultsModal(props) {
-    const {searchResults, onHide} = props
+    const {searchResults, onHide, setDetailsMovieId} = props
+    const history = useHistory()
 
-    function onResultClick(id) {
-        console.log(id)
+    function onResultClick(r) {
+        fetch("http://localhost:3000/details", {
+            method: "POST", 
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                title: r.table.title,
+                description: r.table.overview,
+                release_date: r.table.release_date,
+                genres: r.table.genre_ids,
+                poster_path: r.table.poster_path,
+                search_id: r.table.id
+            })
+        })
+        .then(r => r.json())
+        .then(data => {
+            console.log(data)
+            // setDetailsMovieId(data.id)
+        })
+        // .then(
+        //     fetch("http://localhost:3000/get_id")
+        //     .then(r => r.json())
+        //     .then(id => {
+        //         console.log(id)
+        //         history.push(`/movie/${id}`)
+        // }) )
     }
 
     const mappedResults = searchResults.map(r => {
         return <li key={r.table.id}>
-            <Link to="" onClick={() => onResultClick(r.table.id)}>{r.table.title} {r.table.release_date ? `| ${r.table.release_date.slice(0,4)}` : null}</Link>
+            <Link to="" onClick={() => onResultClick(r)}>{r.table.title} {r.table.release_date ? `| ${r.table.release_date.slice(0,4)}` : null}</Link>
         </li>
     })
 
@@ -27,7 +53,6 @@ function SearchResultsModal(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body> 
-            {/* <h1>{searchResults.table.results[0].table.title}</h1> */}
             <ul>
                 {mappedResults}
             </ul>

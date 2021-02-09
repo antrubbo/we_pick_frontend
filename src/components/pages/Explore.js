@@ -6,7 +6,7 @@ function Explore({initialMovies, setDetailsMovieId, searchTerms, setSearchTerms,
     
     return (
         <>
-            {searchResults ? <SearchResultsModal show={modalShow} onHide={() => setModalShow(false)} searchResults={searchResults}/> : null}
+            {searchResults ? <SearchResultsModal setDetailsMovieId={setDetailsMovieId} show={modalShow} onHide={() => setModalShow(false)} searchResults={searchResults}/> : null}
             <Search searchTerms={searchTerms} setSearchTerms={setSearchTerms} handleSearch={handleSearch} />
             <div className="carousel-div">
                 <MovieCarousel initialMovies={initialMovies} setDetailsMovieId={setDetailsMovieId}/>
