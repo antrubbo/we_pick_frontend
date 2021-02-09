@@ -6,11 +6,12 @@ function MakePick({baseUrl, currentUser, setErrors, errors}) {
     const [currentUserMovies, setCurrentUserMovies] = useState({})
     const [usernameValue, setUsernameValue] = useState("")
     const [secondUser, setSecondUser] = useState(null)
+    const [matchedMovies, setMatchedMovies] = useState(null)
 
     // const {id, username, email, lists, movie_choices} = secondUser
     // console.log(currentUserMovies)
     const {movie_choices} = currentUser
-    console.log(secondUser)
+    console.log(currentUser)
 
     useEffect(() => {
         fetch(`${baseUrl}/lists/${currentUser.lists[0].id}/movies`)
@@ -42,16 +43,30 @@ function MakePick({baseUrl, currentUser, setErrors, errors}) {
     }
 
     function onCompareClick(secondUserMovies) {
-        console.log("second user's movies: ", secondUserMovies)
-        console.log("first user's movies: ", currentUserMovies)
+        // console.log("second user's movies: ", secondUserMovies)
+        // console.log("first user's movies: ", currentUserMovies)
+        const filteredLists = currentUserMovies.filter(mov => secondUserMovies.some(secondUserMovie => mov.id === secondUserMovie.id))
+        // returns the movies in common
+        if(filteredLists) {
+            setMatchedMovies(filteredLists)
+        } else {
+            setErrors("Sorry, no matches!")
+        }
     }
     
+    if (matchedMovies) {
+        const showMatchedMovies = matchedMovies.map(movieObj => {
+            return <div>
 
-    const mappedChoices = movie_choices.map(choice => {
+            </div>
+    })
+}
+
+    const mappedChoices = movie_choices ? (movie_choices.map(choice => {
         return <Dropdown.Item key={choice.movie.id}>
             {choice.movie.title}
         </Dropdown.Item>
-    })
+    })) : null
 
     return (
         <>
@@ -75,7 +90,10 @@ function MakePick({baseUrl, currentUser, setErrors, errors}) {
             {secondUser ? <h3>Let's compare {secondUser[0].username}'s movies to yours!</h3> : null}
             {secondUser ? <button onClick={() => onCompareClick(secondUser[0].lists[0].movies)}>Compare!</button> : null}
         </div>
-
+        <div className="movie-matches">
+            {matchedMovies ? <h3>You're going to the movies tonight!</h3> : null}
+            
+        </div>
         </>
     )
 }
