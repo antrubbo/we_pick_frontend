@@ -23,6 +23,7 @@ function App() {
   const [searchTerms, setSearchTerms] = useState("")
   const [searchResults, setSearchResults] = useState(null)
   const [modalShow, setModalShow] = useState(false)
+  // const [inList, setInList] = useState(false)
 
   useEffect(() => {
     fetch(`${baseUrl}/movies`)

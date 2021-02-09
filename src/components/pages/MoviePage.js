@@ -23,6 +23,7 @@ function MoviePage({baseUrl, detailsMovieId, movieView, setMovieView}) {
         const {id, genres, runtime, overview, title, videos, poster_path,} = movieView
         return (
             <div className="movie-details">
+                {/* <button>Add To My List</button> */}
                 <img src={`https://themoviedb.org/t/p/w300_and_h450_bestv2${poster_path}`} alt={movieView.title}/>
                 <h1>{title}</h1>
                 <h4><strong>Runtime: {runtime} minutes</strong></h4>
