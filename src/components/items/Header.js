@@ -10,7 +10,7 @@ function Header({currentUser, onLogoutClick}) {
 
             {currentUser? <NavLink exact to={`/user/${currentUser.id}`} className="nav-button">My Account</NavLink> : null}
 
-            <NavLink exact to="/compare" className="nav-button">Compare</NavLink>
+            {currentUser ? <NavLink exact to="/compare" className="nav-button">Compare</NavLink> : null}
 
             { !currentUser ? <NavLink exact to="/login" className="nav-button">Sign In</NavLink> : null}
 

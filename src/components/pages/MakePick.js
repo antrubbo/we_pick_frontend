@@ -2,19 +2,21 @@ import {useEffect, useState} from "react"
 import UserSearch from "../items/UserSearch"
 import Dropdown from 'react-bootstrap/Dropdown'
 
-function MakePick({baseUrl, currentUser}) {
-    const [currentUserMovieIds, setCurrentUserMovieIds] = useState({})
+function MakePick({baseUrl, currentUser, setErrors, errors}) {
+    const [currentUserMovies, setCurrentUserMovies] = useState({})
     const [usernameValue, setUsernameValue] = useState("")
+    const [secondUser, setSecondUser] = useState(null)
 
+    // const {id, username, email, lists, movie_choices} = secondUser
+    // console.log(currentUserMovies)
     const {movie_choices} = currentUser
-
-    // console.log("currentUser: ", movie_choices)
+    console.log(secondUser)
 
     useEffect(() => {
         fetch(`${baseUrl}/lists/${currentUser.lists[0].id}/movies`)
         .then(r => r.json())
-        .then(movieIds => {
-            setCurrentUserMovieIds(movieIds)
+        .then(movies => {
+            setCurrentUserMovies(movies)
         })
     }, [baseUrl, currentUser.lists])
 
@@ -29,9 +31,19 @@ function MakePick({baseUrl, currentUser}) {
             })
         })
         .then(r => r.json())
-        .then(data => {
-        console.log(data)
+        .then(userObj => {
+            if(userObj.errors) {
+                setErrors(userObj.errors)
+            } else {
+                setSecondUser(userObj)
+                setErrors("")
+            }
         })
+    }
+
+    function onCompareClick(secondUserMovies) {
+        console.log("second user's movies: ", secondUserMovies)
+        console.log("first user's movies: ", currentUserMovies)
     }
     
 
@@ -43,24 +55,27 @@ function MakePick({baseUrl, currentUser}) {
 
     return (
         <>
-        <h1>MakePick Page</h1>
+        <h1>Pick Something to Watch!</h1>
         <UserSearch usernameValue={usernameValue} setUsernameValue={setUsernameValue} handleUserSearch={handleUserSearch}/>
+        {errors !== "" ? <p key={errors} style={{ color: 'red' }}>*{errors}</p> : null}
         <div className="user-list">
-        <Dropdown>
-            <Dropdown.Toggle variant="success" id="dropdown-basic">
-                My Movies
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-                {mappedChoices}
-                {/* <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
-            </Dropdown.Menu>
-        </Dropdown>
+            <Dropdown>
+                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                    My Movies
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                    {mappedChoices}
+                    {/* <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
+                </Dropdown.Menu>
+            </Dropdown>
         </div>
         <div className="compare-list">
-
+            {secondUser ? <h3>Let's compare {secondUser[0].username}'s movies to yours!</h3> : null}
+            {secondUser ? <button onClick={() => onCompareClick(secondUser[0].lists[0].movies)}>Compare!</button> : null}
         </div>
+
         </>
     )
 }
