@@ -6,7 +6,8 @@ function SearchResultsModal(props) {
     const history = useHistory()
 
     function onResultClick(r) {
-        fetch("http://localhost:3000/details", {
+        onHide()
+        fetch("http://localhost:3000/movies", {
             method: "POST", 
             headers: {
                 "Content-Type": "application/json"
@@ -21,17 +22,10 @@ function SearchResultsModal(props) {
             })
         })
         .then(r => r.json())
-        .then(data => {
-            console.log(data)
-            // setDetailsMovieId(data.id)
+        .then(movie => {
+            setDetailsMovieId(movie.id)
+            history.push(`/movie/${movie.id}`)
         })
-        // .then(
-        //     fetch("http://localhost:3000/get_id")
-        //     .then(r => r.json())
-        //     .then(id => {
-        //         console.log(id)
-        //         history.push(`/movie/${id}`)
-        // }) )
     }
 
     const mappedResults = searchResults.map(r => {

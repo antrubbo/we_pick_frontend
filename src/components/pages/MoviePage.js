@@ -19,7 +19,6 @@ function MoviePage({baseUrl, detailsMovieId, movieView, setMovieView}) {
         })
     }, [detailsMovieId, setMovieView, baseUrl])
 
-
     if(movieView) {
         const {id, genres, runtime, overview, title, videos, poster_path,} = movieView
         return (
