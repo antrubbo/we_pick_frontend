@@ -3,7 +3,7 @@ import{useState} from "react"
 
 function Account({baseUrl, currentUser, setCurrentUser, username, setUsername, email, setEmail}) {
     const [clicked, setClicked] = useState(false)
-    const movieListId = currentUser.lists[0].id
+    const userListId = currentUser.lists[0].id
     const history = useHistory()
     
     function onDeleteClick() {
@@ -20,7 +20,7 @@ function Account({baseUrl, currentUser, setCurrentUser, username, setUsername, e
     }
 
     function onViewMoviesClick() {
-        history.push(`/user/${currentUser.id}/movieslist/${movieListId}`)
+        history.push(`/user/${currentUser.id}/movieslist/${userListId}`)
     }
 
     function handleEdit() {
@@ -30,8 +30,10 @@ function Account({baseUrl, currentUser, setCurrentUser, username, setUsername, e
     function handleSubmit(e) {
         e.preventDefault()
         const formData = { 
+            id: currentUser.id,
             username : username,
-            email: email }
+            email: email 
+        }
 
         fetch(`${baseUrl}/users/${currentUser.id}`, {
             method: "PATCH",

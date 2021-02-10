@@ -1,17 +1,15 @@
 import {useEffect, useState} from "react"
+import {Link} from "react-router-dom"
 import UserSearch from "../items/UserSearch"
 import Dropdown from 'react-bootstrap/Dropdown'
 
-function MakePick({baseUrl, currentUser, setErrors, errors}) {
+function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) {
     const [currentUserMovies, setCurrentUserMovies] = useState({})
     const [usernameValue, setUsernameValue] = useState("")
     const [secondUser, setSecondUser] = useState(null)
-    const [matchedMovies, setMatchedMovies] = useState(null)
+    const [matchedMovies, setMatchedMovies] = useState([])
 
-    // const {id, username, email, lists, movie_choices} = secondUser
-    // console.log(currentUserMovies)
     const {movie_choices} = currentUser
-    console.log(currentUser)
 
     useEffect(() => {
         fetch(`${baseUrl}/lists/${currentUser.lists[0].id}/movies`)
@@ -42,6 +40,8 @@ function MakePick({baseUrl, currentUser, setErrors, errors}) {
         })
     }
 
+    //compare users' lists functionality-------------------------------------------------------|
+
     function onCompareClick(secondUserMovies) {
         // console.log("second user's movies: ", secondUserMovies)
         // console.log("first user's movies: ", currentUserMovies)
@@ -53,14 +53,13 @@ function MakePick({baseUrl, currentUser, setErrors, errors}) {
             setErrors("Sorry, no matches!")
         }
     }
-    
-    if (matchedMovies) {
-        const showMatchedMovies = matchedMovies.map(movieObj => {
-            return <div>
 
-            </div>
+    const showMatchedMovies = matchedMovies.map(mov => {
+        return <div className="matched-movies">
+            <Link to={`/movie/${mov.id}`} onClick={() => setDetailsMovieId(mov.id)} key={mov.id} >{mov.title} {mov.release_date ? `| ${mov.release_date.slice(0,4)}` : null}</Link>
+        </div>
     })
-}
+    
 
     const mappedChoices = movie_choices ? (movie_choices.map(choice => {
         return <Dropdown.Item key={choice.movie.id}>
@@ -92,7 +91,7 @@ function MakePick({baseUrl, currentUser, setErrors, errors}) {
         </div>
         <div className="movie-matches">
             {matchedMovies ? <h3>You're going to the movies tonight!</h3> : null}
-            
+            {showMatchedMovies}
         </div>
         </>
     )

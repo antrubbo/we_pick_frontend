@@ -79,7 +79,7 @@ function App() {
           </Route>
 
           <Route exact path="/compare">
-            <MakePick baseUrl={baseUrl} currentUser={currentUser} errors={errors} setErrors={setErrors}/>
+            <MakePick baseUrl={baseUrl} currentUser={currentUser} errors={errors} setErrors={setErrors} setDetailsMovieId={setDetailsMovieId}/>
           </Route>
 
           <Route exact path="/login">
