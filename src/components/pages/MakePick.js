@@ -7,7 +7,7 @@ function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) 
     const [currentUserMovies, setCurrentUserMovies] = useState({})
     const [usernameValue, setUsernameValue] = useState("")
     const [secondUser, setSecondUser] = useState(null)
-    const [matchedMovies, setMatchedMovies] = useState([])
+    const [matchedMovies, setMatchedMovies] = useState(null)
 
     const {movie_choices} = currentUser
 
@@ -43,8 +43,8 @@ function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) 
     //compare users' lists functionality-------------------------------------------------------|
 
     function onCompareClick(secondUserMovies) {
-        // console.log("second user's movies: ", secondUserMovies)
-        // console.log("first user's movies: ", currentUserMovies)
+        console.log("second user's movies: ", secondUserMovies)
+        console.log("first user's movies: ", currentUserMovies)
         const filteredLists = currentUserMovies.filter(mov => secondUserMovies.some(secondUserMovie => mov.id === secondUserMovie.id))
         // returns the movies in common
         if(filteredLists) {
@@ -54,11 +54,11 @@ function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) 
         }
     }
 
-    const showMatchedMovies = matchedMovies.map(mov => {
+    const showMatchedMovies = matchedMovies ? matchedMovies.map(mov => {
         return <div className="matched-movies">
             <Link to={`/movie/${mov.id}`} onClick={() => setDetailsMovieId(mov.id)} key={mov.id} >{mov.title} {mov.release_date ? `| ${mov.release_date.slice(0,4)}` : null}</Link>
         </div>
-    })
+    }) : null
     
 
     const mappedChoices = movie_choices ? (movie_choices.map(choice => {
@@ -90,7 +90,7 @@ function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) 
             {secondUser ? <button onClick={() => onCompareClick(secondUser[0].lists[0].movies)}>Compare!</button> : null}
         </div>
         <div className="movie-matches">
-            {matchedMovies ? <h3>You're going to the movies tonight!</h3> : null}
+            {matchedMovies ? <h3>You've got some matches!</h3> : null}
             {showMatchedMovies}
         </div>
         </>

@@ -1,7 +1,9 @@
 import { useEffect } from "react"
+import {useHistory} from "react-router-dom"
 import Iframe from 'react-iframe'
 
-function MoviePage({baseUrl, detailsMovieId, movieView, setMovieView}) {
+function MoviePage({baseUrl, detailsMovieId, movieView, setMovieView, currentUser}) {
+    const history = useHistory()
 
     useEffect(() => {
         fetch(`${baseUrl}/details`,{
@@ -19,12 +21,33 @@ function MoviePage({baseUrl, detailsMovieId, movieView, setMovieView}) {
         })
     }, [detailsMovieId, setMovieView, baseUrl])
 
+    function onAddMovieClick(movieId) {
+        const formData = {
+            list_id: currentUser.lists[0].id,
+            movie_id: movieId
+        }
+
+        fetch(`${baseUrl}/movie_choices`, {
+            method:"POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(r => r.json())
+        .then((data => {
+            alert('Movie Added to your Movies List!')
+            history.push(`/user/${currentUser.id}/movieslist/${currentUser.lists[0].id}`)
+        }))
+    }
+
     if(movieView) {
+        console.log(detailsMovieId)
         const {id, genres, runtime, overview, title, videos, poster_path,} = movieView
         return (
             <div className="movie-details">
-                {/* <button>Add To My List</button> */}
                 <img src={`https://themoviedb.org/t/p/w300_and_h450_bestv2${poster_path}`} alt={movieView.title}/>
+                {currentUser && currentUser.lists[0].movies.some(mov => mov.id !== detailsMovieId) ? <button onClick={() => onAddMovieClick(detailsMovieId)}>Add To My Movies List</button> : null}
                 <h1>{title}</h1>
                 <h4><strong>Runtime: {runtime} minutes</strong></h4>
                 <h4><strong>Description:</strong></h4>

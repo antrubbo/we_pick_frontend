@@ -75,7 +75,7 @@ function App() {
           </Route>
 
           <Route exact path="/movie/:id">
-            <MoviePage detailsMovieId={detailsMovieId} movieView={movieView} setMovieView={setMovieView} baseUrl={baseUrl}/>
+            <MoviePage detailsMovieId={detailsMovieId} movieView={movieView} setMovieView={setMovieView} baseUrl={baseUrl} currentUser={currentUser}/>
           </Route>
 
           <Route exact path="/compare">

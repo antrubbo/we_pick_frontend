@@ -16,7 +16,7 @@ function MovieCarousel ({initialMovies, setDetailsMovieId}) {
               id={m.id}
               search_id={m.search_id}
               className="carousel-movie-poster"
-              src={m.poster_path}
+              src={`https://themoviedb.org/t/p/w300_and_h450_bestv2${m.poster_path}`}
               alt={m.title}
             />
             <Carousel.Caption className="carousel-caption">
