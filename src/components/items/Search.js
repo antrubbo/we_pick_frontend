@@ -1,4 +1,4 @@
-
+import '../stylesheets/explore.css'
 
 function Search({searchTerms, setSearchTerms, handleSearch}) {
 
@@ -6,7 +6,7 @@ function Search({searchTerms, setSearchTerms, handleSearch}) {
         handleSearch(searchTerms)
     }
     
-    return (<div>
+    return (
         <div className="search">
             <input
                 type="text"
@@ -17,7 +17,7 @@ function Search({searchTerms, setSearchTerms, handleSearch}) {
                 /> 
             <button type="submit" onClick={() => onSearch(searchTerms)}>Search</button>
         </div>
-    </div>)
+    )
 }
 
 export default Search

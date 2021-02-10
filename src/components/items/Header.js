@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import '../stylesheets/header.css'
 
 function Header({currentUser, onLogoutClick}) {
  

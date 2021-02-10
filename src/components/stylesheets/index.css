@@ -1,0 +1,42 @@
+* { border: 1px solid black; }
+
+body {
+  /* margin: 0; */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
+
+/* Explore Page Styling -----------------------*/
+
+.container{
+  height: 1000px;
+}
+
+.welcome-container{
+  height: 300px;
+}
+
+.carousel-movie-poster{
+  width: 300px;
+}
+
+.carousel-caption h3{
+  color:grey
+}
+
+/* Explore Search------------------------------------ */
+
+.search {
+  display: flex;
+}
+
+.search button {
+  width: 100px;
+  height: 28px;
+}
+
+.searchTerm {
+  width: 500px;
+  margin: 50px 0 0 200px;
+}

@@ -24,8 +24,6 @@ function App() {
   const [searchResults, setSearchResults] = useState(null)
   const [modalShow, setModalShow] = useState(false)
   const [userChoices, setUserChoices] = useState([])
-  
-  console.log(userChoices)
 
   useEffect(() => {
     fetch(`${baseUrl}/movies`)

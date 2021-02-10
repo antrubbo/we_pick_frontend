@@ -1,0 +1,11 @@
+.header{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+    "h1 . . . . ."
+    "navbar navbar navbar navbar navbar navbar";
+}
+
+.navbar { grid-area: navbar; }
+h1 { grid-area: h1; }
