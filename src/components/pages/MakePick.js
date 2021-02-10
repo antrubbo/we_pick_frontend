@@ -56,7 +56,7 @@ function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) 
 
     const showMatchedMovies = matchedMovies ? matchedMovies.map(mov => {
         return <div className="matched-movies">
-            <Link to={`/movie/${mov.id}`} onClick={() => setDetailsMovieId(mov.id)} key={mov.id} >{mov.title} {mov.release_date ? `| ${mov.release_date.slice(0,4)}` : null}</Link>
+            <Link to={`/movie/${mov.id}`} onClick={() => setDetailsMovieId(mov.id)} key={mov.title} >{mov.title} {mov.release_date ? `| ${mov.release_date.slice(0,4)}` : null}</Link>
         </div>
     }) : null
     

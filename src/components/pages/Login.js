@@ -1,7 +1,7 @@
 import {useState} from "react"
 import {useHistory} from "react-router-dom"
 
-function Login({baseUrl, currentUser, setCurrentUser, email, setEmail, errors, setErrors}) {
+function Login({baseUrl, setUserChoices, setCurrentUser, email, setEmail, errors, setErrors}) {
     const history = useHistory()
     const [fakePassword, setFakePassword] = useState("")
 
@@ -22,6 +22,7 @@ function Login({baseUrl, currentUser, setCurrentUser, email, setEmail, errors, s
                     setErrors(userObj.errors)
                 } else {
                     setCurrentUser(userObj)
+                    setUserChoices(userObj.movie_choices)
                     setErrors("")
                     history.push(`/user/${userObj.id}`)
                 }

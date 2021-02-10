@@ -2,9 +2,9 @@ import { useEffect } from "react"
 import {useHistory} from "react-router-dom"
 import Iframe from 'react-iframe'
 
-function MoviePage({baseUrl, detailsMovieId, movieView, setMovieView, currentUser}) {
+function MoviePage({baseUrl, detailsMovieId, movieView, setMovieView, currentUser, userChoices, setUserChoices}) {
     const history = useHistory()
-
+    
     useEffect(() => {
         fetch(`${baseUrl}/details`,{
             method: "POST", 
@@ -22,32 +22,37 @@ function MoviePage({baseUrl, detailsMovieId, movieView, setMovieView, currentUse
     }, [detailsMovieId, setMovieView, baseUrl])
 
     function onAddMovieClick(movieId) {
-        const formData = {
-            list_id: currentUser.lists[0].id,
-            movie_id: movieId
-        }
+        if(currentUser) {
+            const formData = {
+                list_id: currentUser.lists[0].id,
+                movie_id: movieId
+            }
 
-        fetch(`${baseUrl}/movie_choices`, {
-            method:"POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(formData)
-        })
-        .then(r => r.json())
-        .then((data => {
-            alert('Movie Added to your Movies List!')
-            history.push(`/user/${currentUser.id}/movieslist/${currentUser.lists[0].id}`)
-        }))
+            fetch(`${baseUrl}/movie_choices`, {
+                method:"POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(r => r.json())
+            .then((data => {
+                const moviesToAdd = [...userChoices, data]
+                setUserChoices(moviesToAdd)
+                alert('Movie Added to your Movies List!')
+                history.push(`/user/${currentUser.id}/movieslist/${currentUser.lists[0].id}`)
+            }))
+        } else {
+            alert('Sign Up or Log In!')
+        }
     }
 
     if(movieView) {
-        console.log(detailsMovieId)
         const {id, genres, runtime, overview, title, videos, poster_path,} = movieView
         return (
             <div className="movie-details">
                 <img src={`https://themoviedb.org/t/p/w300_and_h450_bestv2${poster_path}`} alt={movieView.title}/>
-                {currentUser && currentUser.lists[0].movies.some(mov => mov.id !== detailsMovieId) ? <button onClick={() => onAddMovieClick(detailsMovieId)}>Add To My Movies List</button> : null}
+                {currentUser && userChoices.some(choice => choice.movie.id === detailsMovieId) ? null : <button onClick={() => onAddMovieClick(detailsMovieId)}>Add To My Movies List</button>}
                 <h1>{title}</h1>
                 <h4><strong>Runtime: {runtime} minutes</strong></h4>
                 <h4><strong>Description:</strong></h4>

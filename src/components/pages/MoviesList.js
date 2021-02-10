@@ -1,19 +1,17 @@
-import {useEffect} from "react"
+import {useEffect, useState} from "react"
 import ListGroup from 'react-bootstrap/ListGroup'
 import {useHistory} from "react-router-dom"
 
 
-function MoviesList({baseUrl, currentUser, setDetailsMovieId}) {
+function MoviesList({baseUrl, currentUser, setDetailsMovieId, userChoices}) {
     const history = useHistory()
-    const {movie_choices} = currentUser
-    const numOfChoices = currentUser.movie_choices.length
-    
-
-    useEffect(() => {
-        if(numOfChoices > 0) {
-            console.log('number of movie choices:', numOfChoices)
-        }
-    }, [numOfChoices])
+    // const {movie_choices} = currentUser
+    console.log('userChoices:', userChoices)
+    // debugger
+    // useEffect(() => {
+    //     const choices = currentUser.movie_choices
+    //     setUserChoices(choices)
+    // }, [currentUser.movie_choices])
 
     function onChoiceClick(choice) {
         setDetailsMovieId(choice.movie.id)
@@ -33,7 +31,7 @@ function MoviesList({baseUrl, currentUser, setDetailsMovieId}) {
         alert("Movie Deleted!")
     }
 
-    const mappedChoices = movie_choices.map(choice => {
+    const mappedChoices = userChoices.map(choice => {
         return <ListGroup.Item key={choice.movie.id}>
             <img src={`https://themoviedb.org/t/p/w300_and_h450_bestv2${choice.movie.poster_path}`} alt={choice.movie.title}/>
             <h4>{choice.movie.title}</h4>

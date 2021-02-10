@@ -23,7 +23,9 @@ function App() {
   const [searchTerms, setSearchTerms] = useState("")
   const [searchResults, setSearchResults] = useState(null)
   const [modalShow, setModalShow] = useState(false)
-  // const [inList, setInList] = useState(false)
+  const [userChoices, setUserChoices] = useState([])
+  
+  console.log(userChoices)
 
   useEffect(() => {
     fetch(`${baseUrl}/movies`)
@@ -34,11 +36,11 @@ function App() {
   }, [])
 
   // just to seed logged in user
-  useEffect(() => {
-    fetch(`${baseUrl}/users/1`)
-    .then(r => r.json())
-    .then(userObj => setCurrentUser(userObj))
-  }, [])
+  // useEffect(() => {
+  //   fetch(`${baseUrl}/users/1`)
+  //   .then(r => r.json())
+  //   .then(userObj => setCurrentUser(userObj))
+  // }, [])
 
   function onLogoutClick(){ 
     setCurrentUser(null)
@@ -71,11 +73,11 @@ function App() {
           </Route>
 
           <Route exact path="/user/:id/movieslist/:id">
-            <MoviesList baseUrl={baseUrl} setDetailsMovieId={setDetailsMovieId} currentUser={currentUser} />
+            <MoviesList baseUrl={baseUrl} setDetailsMovieId={setDetailsMovieId} currentUser={currentUser} userChoices={userChoices}/>
           </Route>
 
           <Route exact path="/movie/:id">
-            <MoviePage detailsMovieId={detailsMovieId} movieView={movieView} setMovieView={setMovieView} baseUrl={baseUrl} currentUser={currentUser}/>
+            <MoviePage detailsMovieId={detailsMovieId} movieView={movieView} setMovieView={setMovieView} baseUrl={baseUrl} currentUser={currentUser} setUserChoices={setUserChoices} userChoices={userChoices}/>
           </Route>
 
           <Route exact path="/compare">
@@ -83,7 +85,7 @@ function App() {
           </Route>
 
           <Route exact path="/login">
-            <Login baseUrl={baseUrl} currentUser={currentUser} setCurrentUser={setCurrentUser} email={email} setEmail={setEmail} errors={errors} setErrors={setErrors}/>
+            <Login baseUrl={baseUrl} setUserChoices={setUserChoices} setCurrentUser={setCurrentUser} email={email} setEmail={setEmail} errors={errors} setErrors={setErrors}/>
           </Route>
 
           <Route exact path="/signup">
