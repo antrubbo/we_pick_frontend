@@ -1,11 +1,25 @@
+
+
 .header{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    display: flex;
+    justify-content: space-between;
+    height: 80px;
+    /* grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     grid-template-areas:
     "h1 . . . . ."
-    "navbar navbar navbar navbar navbar navbar";
+    "navbar navbar navbar navbar navbar navbar"; */
 }
 
-.navbar { grid-area: navbar; }
-h1 { grid-area: h1; }
+#logo {
+    margin-top: 8px;
+    margin-left: 50px;
+}
+
+.navbar {
+    width: 500px;
+    justify-content: space-between;
+}
+
+/* .navbar { grid-area: navbar; }
+h1 { grid-area: h1; } */

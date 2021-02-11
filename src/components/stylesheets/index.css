@@ -1,4 +1,6 @@
-* { border: 1px solid black; }
+* { 
+  border: 1px solid black; 
+}
 
 body {
   /* margin: 0; */
@@ -10,25 +12,62 @@ body {
 /* Explore Page Styling -----------------------*/
 
 .container{
+  display: flex;
   height: 1000px;
+  flex-direction: column;
 }
 
 .welcome-container{
-  height: 300px;
+  background-image: url("https://i1.wp.com/bestlifeonline.com/wp-content/uploads/2019/02/E.T-movie-e1550779088382.jpg?fit=1152%2C630&ssl=1");
+  display: flex;
+  align-self: center;
+  width: 1300px;
+  height: 400px;
+  flex-direction: column;
+  opacity: 0.75;
+}
+
+#welcome-h2 {
+  margin-top: 50px;
+}
+
+/*  Carousel Div Styling */
+
+#carousel-headline-h4 {
+  margin-top: 20px;
+  text-align: center;
 }
 
 .carousel-movie-poster{
   width: 300px;
+  margin-left: 395px;
 }
 
 .carousel-caption h3{
   color:grey
 }
 
+/* .carousel-item {
+  display: flex;
+  justify-content: center;
+} */
+
 /* Explore Search------------------------------------ */
 
+/* search bar parent div */
 .search {
+  margin-top: 40px;
+  width: 528px;
   display: flex;
+  align-self: center;
+  /* flex-direction: column; */
+}
+
+/* search bar input */
+.searchTerm {
+  /* display: flex; */
+  width: 500px;
+  /* margin: 50px 0 0 200px; */
 }
 
 .search button {
@@ -36,7 +75,3 @@ body {
   height: 28px;
 }
 
-.searchTerm {
-  width: 500px;
-  margin: 50px 0 0 200px;
-}
