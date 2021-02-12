@@ -24,6 +24,7 @@ function App() {
   const [searchResults, setSearchResults] = useState(null)
   const [modalShow, setModalShow] = useState(false)
   const [signinShow, setSigninShow] = useState(false)
+  const [signupShow, setSignupShow] = useState(false)
   const [userChoices, setUserChoices] = useState([])
 
   useEffect(() => {
@@ -46,6 +47,10 @@ function App() {
 
   function onSigninClick() {
     setSigninShow(!signinShow)
+  }
+
+  function onSignupClick() {
+    setSignupShow(!signupShow)
   }
 
   function onLogoutClick(){ 
@@ -72,7 +77,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header currentUser={currentUser} onLogoutClick={onLogoutClick} onSigninClick={onSigninClick} signinShow={signinShow} setSigninShow={setSigninShow}/>
+      <Header currentUser={currentUser} onLogoutClick={onLogoutClick} onSigninClick={onSigninClick} onSignupClick={onSignupClick}/>
         <Switch>
           <Route exact path="/user/:id">
             <Account baseUrl={baseUrl} username={username} setUsername={setUsername} email={email} setEmail={setEmail} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
@@ -99,7 +104,7 @@ function App() {
           </Route>
 
           <Route exact path="/">
-            <Explore setDetailsMovieId={setDetailsMovieId} initialMovies={initialMovies} searchTerms={searchTerms} setSearchTerms={setSearchTerms} handleSearch={handleSearch} searchResults={searchResults} modalShow={modalShow} setModalShow={setModalShow} signinShow={signinShow} setSigninShow={setSigninShow}/>
+            <Explore setDetailsMovieId={setDetailsMovieId} initialMovies={initialMovies} searchTerms={searchTerms} setSearchTerms={setSearchTerms} handleSearch={handleSearch} searchResults={searchResults} modalShow={modalShow} setModalShow={setModalShow} signinShow={signinShow} setSigninShow={setSigninShow} signupShow={signupShow} setSignupShow={setSignupShow}/>
           </Route>
         </Switch>
     </div>

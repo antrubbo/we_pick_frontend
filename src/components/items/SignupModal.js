@@ -1,10 +1,10 @@
 import Modal from 'react-bootstrap/Modal'
 
-function SigninModal (props) {
+function SignupModal (props) {
     const {onHide} = props
 
     return (
-      <Modal
+        <Modal
         {...props}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
@@ -12,11 +12,11 @@ function SigninModal (props) {
       >
         <Modal.Header>
           <Modal.Title id="contained-modal-title-vcenter">
-            Sign In To Your Account
+            Sign Up!
           </Modal.Title>
         </Modal.Header>
         <Modal.Body> 
-            Hello
+            Hi There!
         </Modal.Body>
         <Modal.Footer>
           <button onClick={onHide}>Close</button>
@@ -25,4 +25,4 @@ function SigninModal (props) {
     )
 }
 
-export default SigninModal
+export default SignupModal

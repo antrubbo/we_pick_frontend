@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import '../stylesheets/header.css'
 // import SigninModal from "./SigninModal"
 
-function Header({currentUser, onLogoutClick, onSigninClick}) {
+function Header({currentUser, onLogoutClick, onSigninClick, onSignupClick}) {
  
     return (
         <div className="header">
@@ -16,7 +16,7 @@ function Header({currentUser, onLogoutClick, onSigninClick}) {
 
             { !currentUser ? <NavLink exact to="" onClick={onSigninClick} className="nav-button">Sign In</NavLink> : null}
 
-            { !currentUser ? (<NavLink exact to="/signup" className="nav-button">Sign Up</NavLink> ) :
+            { !currentUser ? (<NavLink exact to="" onClick={onSignupClick} className="nav-button">Sign Up</NavLink> ) :
             (<NavLink exact to="/" className="nav-button" onClick={onLogoutClick}>Log Out</NavLink>)}
             </nav>
         </div>
