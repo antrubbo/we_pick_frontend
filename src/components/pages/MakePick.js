@@ -2,6 +2,7 @@ import {useEffect, useState} from "react"
 import {Link} from "react-router-dom"
 import UserSearch from "../items/UserSearch"
 import Dropdown from 'react-bootstrap/Dropdown'
+import styled from "styled-components"
 
 function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) {
     const [currentUserMovies, setCurrentUserMovies] = useState({})
@@ -68,10 +69,14 @@ function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) 
     })) : null
 
     return (
-        <>
-        <h1>Pick Something to Watch!</h1>
+        <Wrapper>
+        
+        <Sidebar>
+            <h3>Pick Something to Watch!</h3>
+        </Sidebar>
         <UserSearch usernameValue={usernameValue} setUsernameValue={setUsernameValue} handleUserSearch={handleUserSearch}/>
         {errors !== "" ? <p key={errors} style={{ color: 'red' }}>*{errors}</p> : null}
+        
         <div className="user-list">
             <Dropdown>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -85,16 +90,33 @@ function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) 
                 </Dropdown.Menu>
             </Dropdown>
         </div>
+
         <div className="compare-list">
             {secondUser ? <h3>Let's compare {secondUser[0].username}'s movies to yours!</h3> : null}
             {secondUser ? <button onClick={() => onCompareClick(secondUser[0].lists[0].movies)}>Compare!</button> : null}
         </div>
+        
         <div className="movie-matches">
             {matchedMovies ? <h3>You've got some matches!</h3> : null}
             {showMatchedMovies}
         </div>
-        </>
+        </Wrapper>
     )
 }
+
+const Wrapper = styled.div`
+    display: flex;
+    height: 1000px;
+    width: auto;
+`
+
+const Sidebar = styled.div`
+    padding: 50px;
+    text-align: center;
+    font-family: 'Carter One', cursive;
+    color: whitesmoke;
+    width: 20vw;
+    background-color: #E9C46A;
+`
 
 export default MakePick

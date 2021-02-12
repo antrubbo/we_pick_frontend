@@ -11,7 +11,7 @@ function MovieCarousel ({initialMovies, setDetailsMovieId}) {
   }
 
   const mappedMovies = initialMovies.map(m => {
-    return <Carousel.Item interval={5000} key={m.id} onClick={() => onImgClick(m)}>
+    return <Carousel.Item interval={4000} key={m.id} onClick={() => onImgClick(m)}>
             <img
               id={m.id}
               search_id={m.search_id}
@@ -19,9 +19,9 @@ function MovieCarousel ({initialMovies, setDetailsMovieId}) {
               src={`https://themoviedb.org/t/p/w300_and_h450_bestv2${m.poster_path}`}
               alt={m.title}
             />
-            <Carousel.Caption className="carousel-caption">
+            {/* <Carousel.Caption className="carousel-caption">
               <h3>{m.title}  |  {m.release_date.slice(0,4)}</h3>
-            </Carousel.Caption>
+            </Carousel.Caption> */}
           </Carousel.Item>
   })
 

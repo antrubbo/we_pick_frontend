@@ -1,7 +1,6 @@
 import MovieCarousel from "../items/MovieCarousel"
 import Search from "../items/Search"
 import SearchResultsModal from "../items/SearchResultsModal"
-// import '../stylesheets/explore.css'
 
 function Explore({initialMovies, setDetailsMovieId, searchTerms, setSearchTerms, handleSearch, searchResults, modalShow, setModalShow}) {
     
@@ -15,7 +14,7 @@ function Explore({initialMovies, setDetailsMovieId, searchTerms, setSearchTerms,
                 <Search searchTerms={searchTerms} setSearchTerms={setSearchTerms} handleSearch={handleSearch} />
             </div>
             <div className="carousel-div">
-                <h4 id="carousel-headline-h4">Today's most popular titles:</h4>
+                <h3 id="carousel-headline-h3">Today's most popular titles:</h3>
                 <MovieCarousel initialMovies={initialMovies} setDetailsMovieId={setDetailsMovieId}/>
             </div>
             {/* </> */}

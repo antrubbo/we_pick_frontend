@@ -1,5 +1,6 @@
 import {useHistory} from "react-router-dom"
 import{useState} from "react"
+import styled from "styled-components"
 
 function Account({baseUrl, currentUser, setCurrentUser, username, setUsername, email, setEmail}) {
     const [clicked, setClicked] = useState(false)
@@ -50,19 +51,48 @@ function Account({baseUrl, currentUser, setCurrentUser, username, setUsername, e
     }
 
     return (
-        <div className="account-page">
-            <h1>Welcome back, {currentUser.username}!</h1>
-            {clicked ? null : <button onClick={onViewMoviesClick}>View My Movies!</button>}
-            {clicked ? null : <button onClick={handleEdit}>Edit Account</button> }
-            {clicked ? <form onSubmit={handleSubmit}>  
-                        <input type="text" placeholder="Name.." value={username} onChange={evt => setUsername(evt.target.value)}></input>
-                        <input type="text" placeholder="Email Address.." value={email} onChange={evt => setEmail(evt.target.value)}></input>
-                        <input type="submit" value="Finalize Changes"></input>
-                        <button onClick={() => setClicked(!clicked)}>Cancel</button>
-                      </form> : null}
-            {clicked ? null : <button onClick={onDeleteClick}>Delete Account</button>}
-        </div>
+        <Wrapper>
+            <Welcome>
+                <h3>Welcome back, {currentUser.username}!</h3>
+            </Welcome>
+            <AccountDiv>
+                <Buttons>
+                {clicked ? null : <button onClick={onViewMoviesClick}>View My Movies!</button>}
+                {clicked ? null : <button onClick={handleEdit}>Edit Account</button> }
+                {clicked ? <form onSubmit={handleSubmit}>  
+                            <input type="text" placeholder="Name.." value={username} onChange={evt => setUsername(evt.target.value)}></input>
+                            <input type="text" placeholder="Email Address.." value={email} onChange={evt => setEmail(evt.target.value)}></input>
+                            <input type="submit" value="Finalize Changes"></input>
+                            <button onClick={() => setClicked(!clicked)}>Cancel</button>
+                        </form> : null}
+                {clicked ? null : <button onClick={onDeleteClick}>Delete Account</button>}
+                </Buttons>
+            </AccountDiv>
+        </Wrapper>
     )
 }
+
+const Wrapper = styled.div`
+    display: flex;
+    height: 1000px;
+    width: auto;
+`
+
+const Welcome = styled.div`
+    padding: 50px;
+    text-align: center;
+    font-family: 'Carter One', cursive;
+    color: whitesmoke;
+    width: 20vw;
+    background-color: #E9C46A;
+`
+
+const AccountDiv = styled.div`
+
+`
+
+const Buttons = styled.div`
+
+`
 
 export default Account

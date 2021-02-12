@@ -1,13 +1,10 @@
-* { border: 1px solid black; }
+/* * { border: 1px solid black; } */
 
-body {
-  /* margin: 0; */
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+.App {
+  background-color: #F7FFF7;
 }
 
-/* Explore Page Styling -----------------------*/
+/* Explore Page Styling -----------------------------------------------------------------------------*/
 
 .container{
   display: flex;
@@ -30,25 +27,26 @@ body {
   margin-top: 50px;
   margin-left: 80px;
   color : whitesmoke;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Carter One', cursive;
 }
 
 #welcome-h4 {
   margin-left: 80px;
   color : whitesmoke;
-  font-family: 'Roboto', sans-serif;
-}
-
-/*  Carousel Div Styling ------------------------------------------*/
-
-
-#carousel-headline-h4 {
-  margin-top: 20px;
-  text-align: center;
   font-family: 'Carter One', cursive;
 }
 
-.carousel-movie-poster{
+/*  Carousel Div Styling --------------------------------------------------------------*/
+
+
+#carousel-headline-h3 {
+  margin: 20px;
+  text-align: center;
+  font-family: 'Carter One', cursive;
+  color: cadetblue;
+}
+
+.carousel-movie-poster {
   /* width: 300px; */
   margin-left: 498px;
 }
@@ -57,16 +55,13 @@ body {
   opacity: 0.5
 }
 
-.carousel-caption h3{
-  color:grey
-}
-
-/* .carousel-item {
-  display: flex;
-  justify-content: center;
+/* .carousel-caption h3{
+  color: cadetblue;
+  font-family: 'Carter One', cursive;
+  text-shadow: 2px 2px 5px whitesmoke;
 } */
 
-/* Explore Search------------------------------------ */
+/* Explore Search------------------------------------------------------------------- */
 
 /* search bar parent div */
 .search {
@@ -86,9 +81,12 @@ body {
 .search button {
   width: 100px;
   height: 28px;
+  background-color: #264653;
+  font-family: 'Roboto', sans-serif;
+  color: whitesmoke;
 }
 
-/* MoviePage Styling ----------------------------------------------------------- */
+/* MoviePage Styling --------------------------------------------------------------------------------- */
 
 .movie-details {
   display: flex;
@@ -120,3 +118,44 @@ Iframe {
 #moviepage-img {
   width: 400px;
 }
+
+/* MoviesList Styling --------------------------------------------------------------------------------------- */
+
+.one-choice-div {
+  display: flex;
+}
+
+.imgAndButtons {
+  display: flex;
+  flex-direction: column;
+}
+
+.choice-buttons{
+  border: none;
+  margin: 2px;
+  background-color: #264653;
+  font-family: 'Roboto', sans-serif;
+  color: whitesmoke;
+}
+
+.overall-choice-div {
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 5px;
+}
+
+.titleDescription {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Carter One', cursive;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#choice-description {
+  width: 300px;
+}
+
+/* Account Page ------------------------------------------------------------------------------- */
+
