@@ -1,7 +1,8 @@
 import Modal from 'react-bootstrap/Modal'
 
-function SigninModal () {
-    
+function SigninModal (props) {
+    const {onHide} = props
+
     return (
         <Modal
         {...props}
@@ -15,7 +16,7 @@ function SigninModal () {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body> 
-            
+            Hello
         </Modal.Body>
         <Modal.Footer>
           <button onClick={onHide}>Close</button>
@@ -23,3 +24,5 @@ function SigninModal () {
       </Modal>
     )
 }
+
+export default SigninModal

@@ -1,7 +1,8 @@
 import { NavLink } from "react-router-dom";
 import '../stylesheets/header.css'
+// import SigninModal from "./SigninModal"
 
-function Header({currentUser, onLogoutClick}) {
+function Header({currentUser, onLogoutClick, onSigninClick}) {
  
     return (
         <div className="header">
@@ -13,7 +14,7 @@ function Header({currentUser, onLogoutClick}) {
 
             {currentUser ? <NavLink exact to="/compare" className="nav-button">Compare</NavLink> : null}
 
-            { !currentUser ? <NavLink exact to="/login" className="nav-button">Sign In</NavLink> : null}
+            { !currentUser ? <NavLink exact to="" onClick={onSigninClick} className="nav-button">Sign In</NavLink> : null}
 
             { !currentUser ? (<NavLink exact to="/signup" className="nav-button">Sign Up</NavLink> ) :
             (<NavLink exact to="/" className="nav-button" onClick={onLogoutClick}>Log Out</NavLink>)}

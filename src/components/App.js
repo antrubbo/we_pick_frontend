@@ -23,6 +23,7 @@ function App() {
   const [searchTerms, setSearchTerms] = useState("")
   const [searchResults, setSearchResults] = useState(null)
   const [modalShow, setModalShow] = useState(false)
+  const [signinShow, setSigninShow] = useState(false)
   const [userChoices, setUserChoices] = useState([])
 
   useEffect(() => {
@@ -34,14 +35,18 @@ function App() {
   }, [])
 
   // just to seed logged in user
-  useEffect(() => {
-    fetch(`${baseUrl}/users/1`)
-    .then(r => r.json())
-    .then(userObj => {
-      setCurrentUser(userObj)
-      setUserChoices(userObj.movie_choices)  
-    })
-  }, [])
+  // useEffect(() => {
+  //   fetch(`${baseUrl}/users/1`)
+  //   .then(r => r.json())
+  //   .then(userObj => {
+  //     setCurrentUser(userObj)
+  //     setUserChoices(userObj.movie_choices)  
+  //   })
+  // }, [])
+
+  function onSigninClick() {
+    setSigninShow(!signinShow)
+  }
 
   function onLogoutClick(){ 
     setCurrentUser(null)
@@ -67,7 +72,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header currentUser={currentUser} onLogoutClick={onLogoutClick}/>
+      <Header currentUser={currentUser} onLogoutClick={onLogoutClick} onSigninClick={onSigninClick} signinShow={signinShow} setSigninShow={setSigninShow}/>
         <Switch>
           <Route exact path="/user/:id">
             <Account baseUrl={baseUrl} username={username} setUsername={setUsername} email={email} setEmail={setEmail} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
@@ -94,7 +99,7 @@ function App() {
           </Route>
 
           <Route exact path="/">
-            <Explore setDetailsMovieId={setDetailsMovieId} initialMovies={initialMovies} searchTerms={searchTerms} setSearchTerms={setSearchTerms} handleSearch={handleSearch} searchResults={searchResults} modalShow={modalShow} setModalShow={setModalShow}/>
+            <Explore setDetailsMovieId={setDetailsMovieId} initialMovies={initialMovies} searchTerms={searchTerms} setSearchTerms={setSearchTerms} handleSearch={handleSearch} searchResults={searchResults} modalShow={modalShow} setModalShow={setModalShow} signinShow={signinShow} setSigninShow={setSigninShow}/>
           </Route>
         </Switch>
     </div>
