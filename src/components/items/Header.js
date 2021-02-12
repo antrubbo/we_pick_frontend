@@ -5,7 +5,7 @@ function Header({currentUser, onLogoutClick}) {
  
     return (
         <div className="header">
-            <h1 id="logo">WePick</h1>
+            <h1 id="logo">WePick!</h1>
             <nav className="navbar">
             <NavLink exact to="/" className="nav-button">Home</NavLink>
 

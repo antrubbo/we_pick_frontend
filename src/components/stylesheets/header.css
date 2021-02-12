@@ -4,22 +4,38 @@
     display: flex;
     justify-content: space-between;
     height: 80px;
-    /* grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    grid-template-areas:
-    "h1 . . . . ."
-    "navbar navbar navbar navbar navbar navbar"; */
+    background-color: #264653;
 }
 
 #logo {
-    margin-top: 8px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-top: 15px;
     margin-left: 50px;
+    color: whitesmoke;
+    font-family: 'Carter One', cursive;
 }
 
 .navbar {
-    width: 500px;
+    width: 400px;
     justify-content: space-between;
+    margin-right: 50px;
 }
 
+.nav-button {
+    color: whitesmoke;
+    text-decoration: none;
+    font-family: 'Carter One', cursive;
+}
 /* .navbar { grid-area: navbar; }
 h1 { grid-area: h1; } */
+
+
+
+/* @font-face {
+    font-family: 'sf_hollywood_hillsbold';
+    src: url('./fonts/SFHollywoodHills-Bold.ttf') format('ttf'),
+         url('./fonts/SFHollywoodHills-Bold.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+  
+  } */

@@ -20,7 +20,7 @@ function MovieCarousel ({initialMovies, setDetailsMovieId}) {
               alt={m.title}
             />
             <Carousel.Caption className="carousel-caption">
-              <h3>{m.title} | {m.release_date.slice(0,4)}</h3>
+              <h3>{m.title}  |  {m.release_date.slice(0,4)}</h3>
             </Carousel.Caption>
           </Carousel.Item>
   })

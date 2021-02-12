@@ -51,23 +51,38 @@ function MoviePage({baseUrl, detailsMovieId, movieView, setMovieView, currentUse
         const {id, genres, runtime, overview, title, videos, poster_path,} = movieView
         return (
             <div className="movie-details">
-                <img src={`https://themoviedb.org/t/p/w300_and_h450_bestv2${poster_path}`} alt={movieView.title}/>
-                {currentUser && userChoices.some(choice => choice.movie.id === detailsMovieId) ? null : <button onClick={() => onAddMovieClick(detailsMovieId)}>Add To My Movies List</button>}
-                <h1>{title}</h1>
-                <h4><strong>Runtime: {runtime} minutes</strong></h4>
-                <h4><strong>Description:</strong></h4>
-                <p>{overview}</p>
-                <h4><strong>Genres:</strong></h4>
-                <ul>
-                    {genres.map(genre => <li key={genre.id}>{genre.name}</li>)}
-                </ul>
-                <Iframe 
-                    width="750px" 
-                    height="500px"
-                    url={`https://www.youtube.com/embed/${videos.results[0].key}`} frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    title={id}
-                    position="relative"/>
+                <h1 id="details-title">{title}</h1>
+                <div className="poster-details">
+                <img id="moviepage-img"src={`https://themoviedb.org/t/p/w300_and_h450_bestv2${poster_path}`} alt={movieView.title}/>
+                <div className="written-details">
+                    <h4><strong>Runtime: {runtime} minutes</strong></h4>
+                    <h4><strong>Description:</strong></h4>
+                    <p>{overview}</p>
+                    <h4><strong>Genres:</strong></h4>
+                    <ul>
+                        {genres.map(genre => <li key={genre.id}>{genre.name}</li>)}
+                    </ul>
+                </div>
+                </div>
+                {currentUser && userChoices.some(choice => choice.movie.id === detailsMovieId) ? null : <button id="add-button" onClick={() => onAddMovieClick(detailsMovieId)}>Add To My Movies List</button>}
+                {/* <div className="written-details">
+                    <h4><strong>Runtime: {runtime} minutes</strong></h4>
+                    <h4><strong>Description:</strong></h4>
+                    <p>{overview}</p>
+                    <h4><strong>Genres:</strong></h4>
+                    <ul>
+                        {genres.map(genre => <li key={genre.id}>{genre.name}</li>)}
+                    </ul>
+                </div> */}
+                <div className="trailer-div">
+                    <Iframe 
+                        width="750px" 
+                        height="500px"
+                        url={`https://www.youtube.com/embed/${videos.results[0].key}`} frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        title={id}
+                        position="relative"/>
+                </div>
             </div> 
         )
     } else {
