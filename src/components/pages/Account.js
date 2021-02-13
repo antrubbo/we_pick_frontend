@@ -1,11 +1,12 @@
 import {useHistory} from "react-router-dom"
 import{useState} from "react"
 import styled from "styled-components"
+import EditModal from "../items/EditModal"
 
-function Account({baseUrl, currentUser, setCurrentUser, username, setUsername, email, setEmail}) {
-    const [clicked, setClicked] = useState(false)
+function Account({baseUrl, currentUser, setCurrentUser, username, setUsername, email, setEmail, errors, setErrors}) {
     const userListId = currentUser.lists[0].id
     const history = useHistory()
+    const [editModalShow, setEditModalShow] = useState(false)
     
     function onDeleteClick() {
         alert("Delete Account - Are you sure?")
@@ -25,29 +26,7 @@ function Account({baseUrl, currentUser, setCurrentUser, username, setUsername, e
     }
 
     function handleEdit() {
-        setClicked(true)
-    }
-
-    function handleSubmit(e) {
-        e.preventDefault()
-        const formData = { 
-            id: currentUser.id,
-            username : username,
-            email: email 
-        }
-
-        fetch(`${baseUrl}/users/${currentUser.id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(formData)
-        })
-        .then(r => r.json())
-        .then(updatedUserObj => {
-            setCurrentUser(updatedUserObj)
-            setClicked(!clicked)
-        })
+        setEditModalShow(true)
     }
 
     return (
@@ -57,15 +36,11 @@ function Account({baseUrl, currentUser, setCurrentUser, username, setUsername, e
             </Welcome>
             <AccountDiv>
                 <Buttons>
-                {clicked ? null : <button onClick={onViewMoviesClick}>View My Movies!</button>}
-                {clicked ? null : <button onClick={handleEdit}>Edit Account</button> }
-                {clicked ? <form onSubmit={handleSubmit}>  
-                            <input type="text" placeholder="Name.." value={username} onChange={evt => setUsername(evt.target.value)}></input>
-                            <input type="text" placeholder="Email Address.." value={email} onChange={evt => setEmail(evt.target.value)}></input>
-                            <input type="submit" value="Finalize Changes"></input>
-                            <button onClick={() => setClicked(!clicked)}>Cancel</button>
-                        </form> : null}
-                {clicked ? null : <button onClick={onDeleteClick}>Delete Account</button>}
+                <button onClick={onViewMoviesClick}>View My Movies!</button>
+                <button onClick={handleEdit}>Edit Account</button>
+                {editModalShow ?
+                        <EditModal show={editModalShow} onHide={() => setEditModalShow(false)} baseUrl={baseUrl} currentUser={currentUser} setCurrentUser={setCurrentUser} username={username} setUsername={setUsername} email={email} setEmail={setEmail} errors={errors} setErrors={setErrors}/> : null}
+                <button onClick={onDeleteClick}>Delete Account</button>
                 </Buttons>
             </AccountDiv>
         </Wrapper>

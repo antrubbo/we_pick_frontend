@@ -1,10 +1,8 @@
-// import {useEffect, useState} from "react"
-// import ListGroup from 'react-bootstrap/ListGroup'
 import {useHistory} from "react-router-dom"
 import styled from "styled-components"
 
 
-function MoviesList({baseUrl, currentUser, setDetailsMovieId, userChoices}) {
+function MoviesList({baseUrl, currentUser, setDetailsMovieId, userChoices, setUserChoices}) {
     const history = useHistory()
 
     function onChoiceClick(choice) {
@@ -19,15 +17,15 @@ function MoviesList({baseUrl, currentUser, setDetailsMovieId, userChoices}) {
         })
         .then(r=> r.json())
         .then(deletedChoiceObj => {
-            const movieParentDiv = evt.target.parentElement
-            movieParentDiv.remove()
+            const movies = userChoices.filter(choice => choice.id !== deletedChoiceObj.id)
+            setUserChoices(movies)
         })
         alert("Movie Deleted!")
     }
 
     const mappedChoices = userChoices.map(choice => {
-        return <div className="overall-choice-div">
-                    <div className="one-choice-div" key={choice.movie.id}>
+        return <div className="overall-choice-div" key={choice.movie.id}>
+                    <div className="one-choice-div">
                         <div className="imgAndButtons">
                             <img src={`https://themoviedb.org/t/p/w300_and_h450_bestv2${choice.movie.poster_path}`} alt={choice.movie.title}/>
                             <button className="choice-buttons" onClick={() => onChoiceClick(choice)}>View Movie Details</button>
@@ -38,8 +36,8 @@ function MoviesList({baseUrl, currentUser, setDetailsMovieId, userChoices}) {
                             <h5>Runtime: {choice.movie.runtime}</h5>
                             <p id="choice-description">{choice.movie.description}</p>
                         </div>
+                    </div>
                 </div>
-            </div>
     })
 
     return(
@@ -48,7 +46,7 @@ function MoviesList({baseUrl, currentUser, setDetailsMovieId, userChoices}) {
                 <Intro>{currentUser.username}'s Movies List</Intro>
             </Username>
             <AllChoicesDiv>
-                {mappedChoices}
+                {mappedChoices.length === 0 ? <NoChoices>Looks like you need to make some selections!</NoChoices> : mappedChoices}
             </AllChoicesDiv>
         </Wrapper>
     )
@@ -57,7 +55,7 @@ function MoviesList({baseUrl, currentUser, setDetailsMovieId, userChoices}) {
 const Wrapper = styled.div`
     display: flex;
     background-color: #F7FFF7;
-    // flex-wrap: wrap;
+    height: 100vh;
 `
 
 const Username = styled.div`
@@ -67,7 +65,6 @@ const Username = styled.div`
     color: whitesmoke;
     width: 20vw;
     background-color: #E9C46A;
-    
 `
 
 const AllChoicesDiv = styled.div`
@@ -75,6 +72,13 @@ const AllChoicesDiv = styled.div`
 `
 const Intro = styled.h3`
 
+`
+
+const NoChoices = styled.h3`
+    font-family: 'Carter One', cursive;
+    color: cadetblue;
+    text-align: center;
+    margin-top: 70px;
 `
 
 

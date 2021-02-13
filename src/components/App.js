@@ -1,8 +1,6 @@
 import { Route, Switch } from "react-router-dom";
 import {useEffect, useState} from "react"
 import Header from "./items/Header"
-import Signup from "./pages/Signup"
-import Login from "./pages/Login"
 import MakePick from "./pages/MakePick"
 import Account from "./pages/Account"
 import Explore from "./pages/Explore"
@@ -80,11 +78,11 @@ function App() {
       <Header currentUser={currentUser} onLogoutClick={onLogoutClick} onSigninClick={onSigninClick} onSignupClick={onSignupClick}/>
         <Switch>
           <Route exact path="/user/:id">
-            <Account baseUrl={baseUrl} username={username} setUsername={setUsername} email={email} setEmail={setEmail} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+            <Account baseUrl={baseUrl} username={username} setUsername={setUsername} email={email} setEmail={setEmail} currentUser={currentUser} setCurrentUser={setCurrentUser} errors={errors} setErrors={setErrors}/>
           </Route>
 
           <Route exact path="/user/:id/movieslist/:id">
-            <MoviesList baseUrl={baseUrl} setDetailsMovieId={setDetailsMovieId} currentUser={currentUser} userChoices={userChoices}/>
+            <MoviesList baseUrl={baseUrl} setDetailsMovieId={setDetailsMovieId} currentUser={currentUser} userChoices={userChoices} setUserChoices={setUserChoices}/>
           </Route>
 
           <Route exact path="/movie/:id">
@@ -95,16 +93,8 @@ function App() {
             <MakePick baseUrl={baseUrl} currentUser={currentUser} errors={errors} setErrors={setErrors} setDetailsMovieId={setDetailsMovieId}/>
           </Route>
 
-          <Route exact path="/login">
-            <Login baseUrl={baseUrl} setUserChoices={setUserChoices} setCurrentUser={setCurrentUser} email={email} setEmail={setEmail} errors={errors} setErrors={setErrors}/>
-          </Route>
-
-          <Route exact path="/signup">
-            <Signup baseUrl={baseUrl} username={username} setUsername={setUsername} email={email} setEmail={setEmail} currentUser={currentUser} setCurrentUser={setCurrentUser} errors={errors} setErrors={setErrors}/>
-          </Route>
-
           <Route exact path="/">
-            <Explore setDetailsMovieId={setDetailsMovieId} initialMovies={initialMovies} searchTerms={searchTerms} setSearchTerms={setSearchTerms} handleSearch={handleSearch} searchResults={searchResults} modalShow={modalShow} setModalShow={setModalShow} signinShow={signinShow} setSigninShow={setSigninShow} signupShow={signupShow} setSignupShow={setSignupShow}/>
+            <Explore setDetailsMovieId={setDetailsMovieId} initialMovies={initialMovies} searchTerms={searchTerms} setSearchTerms={setSearchTerms} handleSearch={handleSearch} searchResults={searchResults} modalShow={modalShow} setModalShow={setModalShow} signinShow={signinShow} setSigninShow={setSigninShow} signupShow={signupShow} setSignupShow={setSignupShow} baseUrl={baseUrl} setUserChoices={setUserChoices} setCurrentUser={setCurrentUser} email={email} setEmail={setEmail} errors={errors} setErrors={setErrors} username={username} setUsername={setUsername} currentUser={currentUser}/>
           </Route>
         </Switch>
     </div>

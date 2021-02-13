@@ -4,15 +4,41 @@ import SearchResultsModal from "../items/SearchResultsModal"
 import SigninModal from "../items/SigninModal"
 import SignupModal from "../items/SignupModal"
 
-function Explore({initialMovies, setDetailsMovieId, searchTerms, setSearchTerms, handleSearch, searchResults, modalShow, setModalShow, signinShow, setSigninShow, signupShow, setSignupShow}) {
+function Explore({
+    initialMovies, 
+    setDetailsMovieId, 
+    searchTerms, 
+    setSearchTerms, 
+    handleSearch, 
+    searchResults, 
+    modalShow, 
+    setModalShow, 
+    signinShow, 
+    setSigninShow, 
+    signupShow, 
+    setSignupShow,
+    baseUrl,
+    setUserChoices,
+    setCurrentUser, 
+    email,
+    setEmail,
+    errors,
+    setErrors, 
+    username,
+    setUsername,
+    currentUser 
+}) {
 
     
     return (
         <div className="container">
         {/* <> */}
-            { signinShow ? <SigninModal show={signinShow} onHide={() => setSigninShow(false)}/> : null }
-            { signupShow ? <SignupModal show={signupShow} onHide={() => setSignupShow(false)}/> : null }
-            {searchResults ? <SearchResultsModal setDetailsMovieId={setDetailsMovieId} show={modalShow} onHide={() => setModalShow(false)} searchResults={searchResults}/> : null}
+            { signinShow ? <SigninModal show={signinShow} onHide={() => setSigninShow(false)} baseUrl={baseUrl} setUserChoices={setUserChoices} setCurrentUser={setCurrentUser} email={email} setEmail={setEmail} errors={errors} setErrors={setErrors}/> : null }
+
+            { signupShow ? <SignupModal show={signupShow} onHide={() => setSignupShow(false)} baseUrl={baseUrl} username={username} setUsername={setUsername} email={email} setEmail={setEmail} currentUser={currentUser} setCurrentUser={setCurrentUser} errors={errors} setErrors={setErrors}/> : null }
+
+            {searchResults ? <SearchResultsModal show={modalShow} onHide={() => setModalShow(false)} setDetailsMovieId={setDetailsMovieId} searchResults={searchResults}/> : null}
+            
             <div className="welcome-container">
                 <h2 id="welcome-h2"><strong>Less scroll - more watch!</strong></h2>
                 <h4 id="welcome-h4">Find a movie to watch without endless searching.</h4>
@@ -28,3 +54,5 @@ function Explore({initialMovies, setDetailsMovieId, searchTerms, setSearchTerms,
 }
 
 export default Explore
+
+// setUserChoices, setCurrentUser, email, setEmail, errors, setErrors
