@@ -34,14 +34,14 @@ function App() {
   }, [])
 
   // just to seed logged in user
-  // useEffect(() => {
-  //   fetch(`${baseUrl}/users/1`)
-  //   .then(r => r.json())
-  //   .then(userObj => {
-  //     setCurrentUser(userObj)
-  //     setUserChoices(userObj.movie_choices)  
-  //   })
-  // }, [])
+  useEffect(() => {
+    fetch(`${baseUrl}/users/1`)
+    .then(r => r.json())
+    .then(userObj => {
+      setCurrentUser(userObj)
+      setUserChoices(userObj.movie_choices)  
+    })
+  }, [])
 
   function onSigninClick() {
     setSigninShow(!signinShow)

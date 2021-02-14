@@ -70,44 +70,41 @@ function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) 
 
     return (
         <Wrapper>
-        
         <Sidebar>
-            <h3>Pick Something to Watch!</h3>
+            <h3>Compare Your Picks!</h3>
+            <UserToggle className="user-list">
+                <Dropdown>
+                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                        {currentUser.username}'s Movies
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        {mappedChoices}
+                    </Dropdown.Menu>
+                </Dropdown>
+            </UserToggle>
         </Sidebar>
-        <UserSearch usernameValue={usernameValue} setUsernameValue={setUsernameValue} handleUserSearch={handleUserSearch}/>
-        {errors !== "" ? <p key={errors} style={{ color: 'red' }}>*{errors}</p> : null}
-        
-        <div className="user-list">
-            <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                    My Movies
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                    {mappedChoices}
-                    {/* <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
-                </Dropdown.Menu>
-            </Dropdown>
-        </div>
+        <Compare>
+            <UserSearch usernameValue={usernameValue} setUsernameValue={setUsernameValue} handleUserSearch={handleUserSearch}/>
+            
+            {errors !== "" ? <p key={errors} style={{ color: 'red' }}>*{errors}</p> : null}
 
-        <div className="compare-list">
-            {secondUser ? <h3>Let's compare {secondUser[0].username}'s movies to yours!</h3> : null}
-            {secondUser ? <button onClick={() => onCompareClick(secondUser[0].lists[0].movies)}>Compare!</button> : null}
-        </div>
+            <div className="compare-list">
+                {secondUser ? <h3>Let's see what you and {secondUser[0].username} want to watch!</h3> : null}
+                {secondUser ? <Button onClick={() => onCompareClick(secondUser[0].lists[0].movies)}>Compare!</Button> : null}
+            </div>
         
-        <div className="movie-matches">
-            {matchedMovies ? <h3>You've got some matches!</h3> : null}
-            {showMatchedMovies}
-        </div>
+            <div className="movie-matches">
+                {matchedMovies ? <h3>You've got some matches!</h3> : null}
+                {showMatchedMovies}
+            </div>
+        </Compare>
         </Wrapper>
     )
 }
 
 const Wrapper = styled.div`
     display: flex;
-    height: 1000px;
-    width: auto;
+    height: 100vh;
 `
 
 const Sidebar = styled.div`
@@ -117,6 +114,23 @@ const Sidebar = styled.div`
     color: whitesmoke;
     width: 20vw;
     background-color: #E9C46A;
+`
+
+const Compare = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 80vw;
+    font-family: 'Carter One', cursive;
+`
+
+const UserToggle = styled.div`
+    margin-top: 40px;
+`
+
+const Button = styled.button`
+    width: 100px;
+    background-color: #264653;
+    color: whitesmoke;
 `
 
 export default MakePick

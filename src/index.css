@@ -21,6 +21,7 @@
   height: 400px;
   flex-direction: column;
   opacity: 0.9;
+  font-family: 'Carter One', cursive;
 }
 
 #welcome-h2 {
@@ -55,15 +56,11 @@
   opacity: 0.5
 }
 
-/* .carousel-caption h3{
-  color: cadetblue;
-  font-family: 'Carter One', cursive;
-  text-shadow: 2px 2px 5px whitesmoke;
-} */
 
-/* Explore Search------------------------------------------------------------------- */
+/* Explore Movie Search------------------------------------------------------------------- */
 
 /* search bar parent div */
+
 .search {
   margin-top: 40px;
   width: 728px;
@@ -82,7 +79,6 @@
   width: 100px;
   height: 28px;
   background-color: #264653;
-  font-family: 'Roboto', sans-serif;
   color: whitesmoke;
 }
 

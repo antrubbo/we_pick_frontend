@@ -63,7 +63,7 @@ const Welcome = styled.div`
 `
 
 const AccountDiv = styled.div`
-
+    width: 80 vw;
 `
 
 const Buttons = styled.div`
