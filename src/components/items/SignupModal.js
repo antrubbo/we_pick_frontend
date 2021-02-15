@@ -35,7 +35,7 @@ function SignupModal (props) {
                 setCurrentUser(userObj)
                 setErrors("")
                 onHide()
-                history.push(`/user/${userObj.id}`)
+                history.push(`/user/${userObj.id}/movieslist/${userObj.lists[0].id}`)
               }
         })
     }
