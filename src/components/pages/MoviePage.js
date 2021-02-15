@@ -1,10 +1,11 @@
 import { useEffect } from "react"
 import {useHistory} from "react-router-dom"
 import Iframe from 'react-iframe'
+import styled from "styled-components"
 
 function MoviePage({baseUrl, detailsMovieId, movieView, setMovieView, currentUser, userChoices, setUserChoices}) {
     const history = useHistory()
-    
+    console.log(movieView)
     useEffect(() => {
         fetch(`${baseUrl}/details`,{
             method: "POST", 
@@ -17,6 +18,7 @@ function MoviePage({baseUrl, detailsMovieId, movieView, setMovieView, currentUse
         })
         .then(resp => resp.json())
         .then(movieObj => {
+            console.log(movieObj)
             setMovieView(movieObj)
         })
     }, [detailsMovieId, setMovieView, baseUrl])
@@ -50,30 +52,22 @@ function MoviePage({baseUrl, detailsMovieId, movieView, setMovieView, currentUse
     if(movieView) {
         const {id, genres, runtime, overview, title, videos, poster_path,} = movieView
         return (
-            <div className="movie-details">
-                <h1 id="details-title">{title}</h1>
-                <div className="poster-details">
-                <img id="moviepage-img"src={`https://themoviedb.org/t/p/w300_and_h450_bestv2${poster_path}`} alt={movieView.title}/>
-                <div className="written-details">
-                    <h4><strong>Runtime: {runtime} minutes</strong></h4>
-                    <h4><strong>Description:</strong></h4>
-                    <p>{overview}</p>
-                    <h4><strong>Genres:</strong></h4>
-                    <ul>
-                        {genres.map(genre => <li key={genre.id}>{genre.name}</li>)}
-                    </ul>
-                </div>
-                </div>
-                {currentUser && userChoices.some(choice => choice.movie.id === detailsMovieId) ? null : <button id="add-button" onClick={() => onAddMovieClick(detailsMovieId)}>Add To My Movies List</button>}
-                {/* <div className="written-details">
-                    <h4><strong>Runtime: {runtime} minutes</strong></h4>
-                    <h4><strong>Description:</strong></h4>
-                    <p>{overview}</p>
-                    <h4><strong>Genres:</strong></h4>
-                    <ul>
-                        {genres.map(genre => <li key={genre.id}>{genre.name}</li>)}
-                    </ul>
-                </div> */}
+            <Wrapper>
+                <Sidebar>
+                    <MovieTitle>{title}</MovieTitle>
+                </Sidebar>
+                <DetailsDiv>
+                    <img id="moviepage-img"src={`https://themoviedb.org/t/p/w300_and_h450_bestv2${poster_path}`} alt={movieView.title}/>
+                    <WrittenDetailsDiv>
+                        <h4><strong>Runtime: {runtime} minutes</strong></h4>
+                        <h4><strong>Description:</strong></h4>
+                        <p>{overview}</p>
+                        <h4><strong>Genres:</strong></h4>
+                        <ul>
+                            {genres.map(genre => <li key={genre.id}>{genre.name}</li>)}
+                        </ul>
+                        {currentUser && userChoices.some(choice => choice.movie.id === detailsMovieId) ? null : <Button onClick={() => onAddMovieClick(detailsMovieId)}>Add To My Movies List</Button>}
+                    </WrittenDetailsDiv>
                 <div className="trailer-div">
                     <Iframe 
                         width="750px" 
@@ -83,11 +77,51 @@ function MoviePage({baseUrl, detailsMovieId, movieView, setMovieView, currentUse
                         title={id}
                         position="relative"/>
                 </div>
-            </div> 
+                </DetailsDiv>
+            </Wrapper> 
         )
     } else {
         return <h1>Loading...</h1>
     } 
 }
+
+const Wrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    font-family: 'Carter One', cursive;
+    color: 264653;
+`
+
+const Sidebar = styled.div`
+    padding: 50px;
+    text-align: center;
+    font-family: 'Carter One', cursive;
+    color: whitesmoke;
+    width: 20vw;
+    background-color: #E9C46A;
+`
+
+const MovieTitle = styled.h2`
+
+`
+
+const DetailsDiv = styled.div`
+    display: flex;
+    width: 80vw;
+`
+
+const WrittenDetailsDiv = styled.div`
+
+`
+
+const Button = styled.button`
+    height: 30px;
+    width: 200px;
+    border: none;
+    background-color: #264653;
+    color: whitesmoke; 
+    border: none;
+    border-radius: 5px;
+`
 
 export default MoviePage

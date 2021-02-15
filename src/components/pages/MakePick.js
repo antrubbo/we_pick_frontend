@@ -1,5 +1,4 @@
 import {useEffect, useState} from "react"
-// import {Link} from "react-router-dom"
 import UserSearch from "../items/UserSearch"
 import Dropdown from 'react-bootstrap/Dropdown'
 import styled from "styled-components"
@@ -59,13 +58,6 @@ function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) 
         }
     }
 
-    // const showMatchedMovies = matchedMovies ? matchedMovies.map(mov => {
-    //     return <div className="matched-movies">
-    //         <Link to={`/movie/${mov.id}`} onClick={() => setDetailsMovieId(mov.id)} key={mov.title} >{mov.title} {mov.release_date ? `| ${mov.release_date.slice(0,4)}` : null}</Link>
-    //     </div>
-    // }) : null
-    
-
     const mappedChoices = movie_choices ? (movie_choices.map(choice => {
         return <Dropdown.Item key={choice.movie.id}>
             {choice.movie.title}
@@ -74,35 +66,31 @@ function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) 
 
     return (
         <Wrapper>
-        <Sidebar>
-            <h3>Compare Your Picks!</h3>
-            <UserToggle className="user-list">
-                <Dropdown>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                        {currentUser.username}'s Movies
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                        {mappedChoices}
-                    </Dropdown.Menu>
-                </Dropdown>
-            </UserToggle>
-        </Sidebar>
-        <Compare>
-            <UserSearch usernameValue={usernameValue} setUsernameValue={setUsernameValue} handleUserSearch={handleUserSearch}/>
-            
-            {errors !== "" ? <ErrorsH3 key={errors} style={{ color: 'red' }}>{errors}</ErrorsH3> : null}
+            <Sidebar>
+                <h3>Compare Your Picks!</h3>
+                <UserToggle className="user-list">
+                    <Dropdown>
+                        <Dropdown.Toggle variant="success" id="dropdown-basic">
+                            {currentUser.username}'s Movies
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            {mappedChoices}
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </UserToggle>
+            </Sidebar>
+            <Compare>
+                <UserSearch usernameValue={usernameValue} setUsernameValue={setUsernameValue} handleUserSearch={handleUserSearch}/>
+                
+                {errors !== "" ? <ErrorsH3 key={errors} style={{ color: 'red' }}>{errors}</ErrorsH3> : null}
 
-            <CompareList className="compare-list">
-                {secondUser ? <h3>Let's see what you and {secondUser[0].username} want to watch!</h3> : null}
-                {secondUser ? <Button onClick={() => onCompareClick(secondUser[0].lists[0].movies)}>Compare!</Button> : null}
-            </CompareList>
+                <CompareList className="compare-list">
+                    {secondUser ? <h3>Let's see what you and {secondUser[0].username} want to watch!</h3> : null}
+                    {secondUser ? <Button onClick={() => onCompareClick(secondUser[0].lists[0].movies)}>Compare Lists</Button> : null}
+                </CompareList>
 
-            {compareShow ? <CompareModal show={compareShow} onHide={() => setCompareShow(false)} matchedMovies={matchedMovies} errors={errors} setDetailsMovieId={setDetailsMovieId}/> : null}
-            {/* <div className="movie-matches">
-                {matchedMovies ? <h3>You've got some matches!</h3> : null}
-                {showMatchedMovies}
-            </div> */}
-        </Compare>
+                {compareShow ? <CompareModal show={compareShow} onHide={() => setCompareShow(false)} matchedMovies={matchedMovies} errors={errors} setDetailsMovieId={setDetailsMovieId}/> : null}
+            </Compare>
         </Wrapper>
     )
 }
@@ -110,6 +98,7 @@ function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) 
 const Wrapper = styled.div`
     display: flex;
     height: 100vh;
+    color: #264653;
 `
 
 const Sidebar = styled.div`
@@ -140,7 +129,7 @@ const UserToggle = styled.div`
 `
 
 const Button = styled.button`
-    width: 120px;
+    width: 150px;
     background-color: #264653;
     color: whitesmoke;
     margin-top: 25px;

@@ -2,7 +2,7 @@ import {useHistory} from "react-router-dom"
 import {useState} from "react"
 import styled from "styled-components"
 import EditModal from "../items/EditModal"
-import MoviePage from "./MoviePage"
+// import MoviePage from "./MoviePage"
 
 function MoviesList({baseUrl, currentUser, setCurrentUser, setDetailsMovieId, userChoices, setUserChoices, username, setUsername, email, setEmail, errors, setErrors}) {
     const history = useHistory()
@@ -56,8 +56,10 @@ function MoviesList({baseUrl, currentUser, setCurrentUser, setDetailsMovieId, us
                             <button className="choice-buttons" onClick={(evt) => onDeleteChoice(evt, choice)}>Delete Movie</button>
                         </div>
                         <div className="titleDescription">
-                            <h4>{choice.movie.title}</h4>
-                            {/* <h5>Runtime: {choice.movie.runtime}</h5> */}
+                            <TitleAndDate>
+                                <h4>{choice.movie.title}</h4>
+                                <h5>{choice.movie.release_date.slice(0,4)}</h5>
+                            </TitleAndDate>
                             <p id="choice-description">{choice.movie.description}</p>
                         </div>
                     </div>
@@ -75,9 +77,11 @@ function MoviesList({baseUrl, currentUser, setCurrentUser, setDetailsMovieId, us
                 </Buttons>
             </Sidebar>
             <AllChoicesDiv>
-                {mappedChoices.length === 0 ? null : <MovieListTitle>My Movies List</MovieListTitle>}
                 {mappedChoices.length === 0 ? <NoChoices>Looks like you need to make some selections!</NoChoices> : mappedChoices}
             </AllChoicesDiv>
+                { mappedChoices.length === 0 ? null : <TitleDiv>
+                    <MovieListTitle>My Movies List</MovieListTitle>
+                </TitleDiv>}
         </Wrapper>
     )
 }
@@ -85,7 +89,8 @@ function MoviesList({baseUrl, currentUser, setCurrentUser, setDetailsMovieId, us
 const Wrapper = styled.div`
     display: flex;
     background-color: #F7FFF7;
-    height: 100%;
+    height: 100vh;
+    color: #264653;
 `
 
 const Sidebar = styled.div`
@@ -99,14 +104,23 @@ const Sidebar = styled.div`
 
 const AllChoicesDiv = styled.div`
     font-family: 'Carter One', cursive;
-    width: 80vw;
+    width: 60vw;
     display: flex;
     flex-direction: column;
 `
 
+const TitleDiv = styled.div`
+    display: flex;
+    width: 20vw;
+    justify-content: center;
+    height: 175px;
+    background-color: #264653;
+`
+
 const MovieListTitle = styled.h3`
-    align-self: center;
-    margin: 30px;
+    padding: 50px;
+    font-family: 'Carter One', cursive;
+    color: whitesmoke;
 `
 
 const NoChoices = styled.h3`
@@ -114,6 +128,7 @@ const NoChoices = styled.h3`
     color: cadetblue;
     text-align: center;
     margin-top: 70px;
+    width: 80vw;
 `
 const Buttons = styled.div`
     display: flex;
@@ -129,8 +144,13 @@ const Button = styled.button`
     height: 40px;
     background-color: #264653;
     color: whitesmoke; 
+    border: none;
+    border-radius: 5px;
 `
-
+const TitleAndDate = styled.div`
+    display: flex;
+    flex-direction: column;
+`
 
 
 export default MoviesList

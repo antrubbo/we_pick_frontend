@@ -14,11 +14,10 @@
 
 .welcome-container{
   background-image: url("https://i1.wp.com/bestlifeonline.com/wp-content/uploads/2019/02/E.T-movie-e1550779088382.jpg?fit=1152%2C630&ssl=1");
-  /* object-fit: cover; */
   display: flex;
   align-self: center;
   width: 1300px;
-  height: 400px;
+  height: 300px;
   flex-direction: column;
   opacity: 0.9;
   font-family: 'Carter One', cursive;
@@ -41,10 +40,10 @@
 
 
 #carousel-headline-h3 {
-  margin: 20px;
+  margin: 15px;
   text-align: center;
   font-family: 'Carter One', cursive;
-  color: cadetblue;
+  color: #264653;
 }
 
 .carousel-movie-poster {
@@ -84,33 +83,6 @@
 
 /* MoviePage Styling --------------------------------------------------------------------------------- */
 
-.movie-details {
-  display: flex;
-  flex-direction: column;
-}
-
-.poster-details {
-  display: flex;
-  justify-content: center;
-  justify-content: space-around;
-}
-
-Iframe {
-  margin-top: 50px;
-}
-
-#details-title {
-  margin: 20px;
-  margin-left: 260px;
-}
-
-#add-button {
-  width: 180px;
-  height: 28px;
-  margin: 15px;
-  margin-left: 260px;
-}
-
 #moviepage-img {
   width: 400px;
 }
@@ -140,7 +112,7 @@ Iframe {
   border: 1px solid black;
   border-radius: 10px;
   margin: 5px;
-  width: 70%;
+  width: 98.75%;
 }
 
 .titleDescription {

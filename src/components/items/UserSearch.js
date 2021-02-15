@@ -34,6 +34,7 @@ const UserSearchDiv = styled.div`
 
 const Input = styled.input`
     width: 600px;
+    color: #264653;
 `
 
 const Button = styled.button`

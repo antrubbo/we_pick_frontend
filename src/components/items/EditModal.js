@@ -43,13 +43,13 @@ function EditModal (props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body> 
-            {errors !== "" ? <p key={errors} style={{ color: 'red' }}>*{errors}</p> : null}
-            <form onSubmit={handleSubmit}>  
-                <input type="text" placeholder="Username.." value={username} onChange={evt => setUsername(evt.target.value)}></input>
-                <input type="text" placeholder="Email Address.." value={email} onChange={evt => setEmail(evt.target.value)}></input>
-                <input type="submit" value="Finalize Changes"></input>
-                <button onClick={() => onHide()}>Cancel</button>
-            </form>
+            {errors !== "" ? errors.map(error => <p key={error} style={{ color: 'red' }}>*{error}</p>) : null}
+                <form onSubmit={handleSubmit}>  
+                    <input type="text" placeholder="Username.." value={username} onChange={evt => setUsername(evt.target.value)}></input>
+                    <input type="text" placeholder="Email Address.." value={email} onChange={evt => setEmail(evt.target.value)}></input>
+                    <input type="submit" value="Finalize Changes"></input>
+                    <button onClick={() => onHide()}>Cancel</button>
+                </form>
         </Modal.Body>
         <Modal.Footer>
           <button onClick={onHide}>Close</button>
