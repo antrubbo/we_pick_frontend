@@ -1,14 +1,16 @@
 import {useEffect, useState} from "react"
-import {Link} from "react-router-dom"
+// import {Link} from "react-router-dom"
 import UserSearch from "../items/UserSearch"
 import Dropdown from 'react-bootstrap/Dropdown'
 import styled from "styled-components"
+import CompareModal from "../items/CompareModal"
 
 function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) {
     const [currentUserMovies, setCurrentUserMovies] = useState({})
     const [usernameValue, setUsernameValue] = useState("")
     const [secondUser, setSecondUser] = useState(null)
     const [matchedMovies, setMatchedMovies] = useState(null)
+    const [compareShow, setCompareShow] = useState(false)
 
     const {movie_choices} = currentUser
 
@@ -44,22 +46,24 @@ function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) 
     //compare users' lists functionality-------------------------------------------------------|
 
     function onCompareClick(secondUserMovies) {
-        console.log("second user's movies: ", secondUserMovies)
-        console.log("first user's movies: ", currentUserMovies)
+        // console.log("second user's movies: ", secondUserMovies)
+        // console.log("first user's movies: ", currentUserMovies)
         const filteredLists = currentUserMovies.filter(mov => secondUserMovies.some(secondUserMovie => mov.id === secondUserMovie.id))
         // returns the movies in common
-        if(filteredLists) {
+        if(filteredLists.length !== 0) {
             setMatchedMovies(filteredLists)
+            setCompareShow(!compareShow)
         } else {
-            setErrors("Sorry, no matches!")
+            setErrors(`Sorry, no matches with ${secondUser[0].username}!`)
+            setSecondUser(null)
         }
     }
 
-    const showMatchedMovies = matchedMovies ? matchedMovies.map(mov => {
-        return <div className="matched-movies">
-            <Link to={`/movie/${mov.id}`} onClick={() => setDetailsMovieId(mov.id)} key={mov.title} >{mov.title} {mov.release_date ? `| ${mov.release_date.slice(0,4)}` : null}</Link>
-        </div>
-    }) : null
+    // const showMatchedMovies = matchedMovies ? matchedMovies.map(mov => {
+    //     return <div className="matched-movies">
+    //         <Link to={`/movie/${mov.id}`} onClick={() => setDetailsMovieId(mov.id)} key={mov.title} >{mov.title} {mov.release_date ? `| ${mov.release_date.slice(0,4)}` : null}</Link>
+    //     </div>
+    // }) : null
     
 
     const mappedChoices = movie_choices ? (movie_choices.map(choice => {
@@ -86,17 +90,18 @@ function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) 
         <Compare>
             <UserSearch usernameValue={usernameValue} setUsernameValue={setUsernameValue} handleUserSearch={handleUserSearch}/>
             
-            {errors !== "" ? <p key={errors} style={{ color: 'red' }}>*{errors}</p> : null}
+            {errors !== "" ? <ErrorsH3 key={errors} style={{ color: 'red' }}>{errors}</ErrorsH3> : null}
 
-            <div className="compare-list">
+            <CompareList className="compare-list">
                 {secondUser ? <h3>Let's see what you and {secondUser[0].username} want to watch!</h3> : null}
                 {secondUser ? <Button onClick={() => onCompareClick(secondUser[0].lists[0].movies)}>Compare!</Button> : null}
-            </div>
-        
-            <div className="movie-matches">
+            </CompareList>
+
+            {compareShow ? <CompareModal show={compareShow} onHide={() => setCompareShow(false)} matchedMovies={matchedMovies} errors={errors} setDetailsMovieId={setDetailsMovieId}/> : null}
+            {/* <div className="movie-matches">
                 {matchedMovies ? <h3>You've got some matches!</h3> : null}
                 {showMatchedMovies}
-            </div>
+            </div> */}
         </Compare>
         </Wrapper>
     )
@@ -123,14 +128,29 @@ const Compare = styled.div`
     font-family: 'Carter One', cursive;
 `
 
+const CompareList = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 113px;
+`
+
 const UserToggle = styled.div`
     margin-top: 40px;
 `
 
 const Button = styled.button`
-    width: 100px;
+    width: 120px;
     background-color: #264653;
     color: whitesmoke;
+    margin-top: 25px;
+    border: none;
+    height: 35px;
+    border-radius: 5px;
+`
+
+const ErrorsH3 = styled.h3`
+    text-align: center;
 `
 
 export default MakePick

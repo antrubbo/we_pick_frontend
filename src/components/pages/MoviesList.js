@@ -1,9 +1,33 @@
 import {useHistory} from "react-router-dom"
+import {useState} from "react"
 import styled from "styled-components"
+import EditModal from "../items/EditModal"
+import MoviePage from "./MoviePage"
 
-
-function MoviesList({baseUrl, currentUser, setDetailsMovieId, userChoices, setUserChoices}) {
+function MoviesList({baseUrl, currentUser, setCurrentUser, setDetailsMovieId, userChoices, setUserChoices, username, setUsername, email, setEmail, errors, setErrors}) {
     const history = useHistory()
+    const [editModalShow, setEditModalShow] = useState(false)
+
+    // Account functions --------------------------------------------------------------------------------------------------
+
+    function onDeleteClick() {
+        alert("Delete Account - Are you sure?")
+        fetch(`${baseUrl}/users/${currentUser.id}`, {
+            method: "DELETE"
+        })
+        .then(r=> r.json())
+        .then(deletedUserObj => {
+            setCurrentUser(null)
+        })
+        alert("Account Deleted!")
+        history.push("/")
+    }
+
+    function handleEdit() {
+        setEditModalShow(true)
+    }
+
+    // MovieList functions ------------------------------------------------------------------------------------------------
 
     function onChoiceClick(choice) {
         setDetailsMovieId(choice.movie.id)
@@ -33,7 +57,7 @@ function MoviesList({baseUrl, currentUser, setDetailsMovieId, userChoices, setUs
                         </div>
                         <div className="titleDescription">
                             <h4>{choice.movie.title}</h4>
-                            <h5>Runtime: {choice.movie.runtime}</h5>
+                            {/* <h5>Runtime: {choice.movie.runtime}</h5> */}
                             <p id="choice-description">{choice.movie.description}</p>
                         </div>
                     </div>
@@ -42,10 +66,16 @@ function MoviesList({baseUrl, currentUser, setDetailsMovieId, userChoices, setUs
 
     return(
         <Wrapper>
-            <Username>
-                <Intro>{currentUser.username}'s Movies List</Intro>
-            </Username>
+            <Sidebar>
+                <h3>Welcome Back, {currentUser.username}!</h3>
+                <Buttons>
+                    <Button onClick={handleEdit}>Edit Account</Button>
+                    {editModalShow ? <EditModal show={editModalShow} onHide={() => setEditModalShow(false)} baseUrl={baseUrl} currentUser={currentUser} setCurrentUser={setCurrentUser} username={username} setUsername={setUsername} email={email} setEmail={setEmail} errors={errors} setErrors={setErrors}/> : null}
+                    <Button onClick={onDeleteClick}>Delete Account</Button>
+                </Buttons>
+            </Sidebar>
             <AllChoicesDiv>
+                {mappedChoices.length === 0 ? null : <MovieListTitle>My Movies List</MovieListTitle>}
                 {mappedChoices.length === 0 ? <NoChoices>Looks like you need to make some selections!</NoChoices> : mappedChoices}
             </AllChoicesDiv>
         </Wrapper>
@@ -55,10 +85,10 @@ function MoviesList({baseUrl, currentUser, setDetailsMovieId, userChoices, setUs
 const Wrapper = styled.div`
     display: flex;
     background-color: #F7FFF7;
-    height: 100vh;
+    height: 100%;
 `
 
-const Username = styled.div`
+const Sidebar = styled.div`
     padding: 50px;
     text-align: center;
     font-family: 'Carter One', cursive;
@@ -68,10 +98,15 @@ const Username = styled.div`
 `
 
 const AllChoicesDiv = styled.div`
+    font-family: 'Carter One', cursive;
     width: 80vw;
+    display: flex;
+    flex-direction: column;
 `
-const Intro = styled.h3`
 
+const MovieListTitle = styled.h3`
+    align-self: center;
+    margin: 30px;
 `
 
 const NoChoices = styled.h3`
@@ -80,7 +115,21 @@ const NoChoices = styled.h3`
     text-align: center;
     margin-top: 70px;
 `
+const Buttons = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    height: 100px;
+    justify-content: space-between;
+`
 
+const Button = styled.button`
+    width: 180px;
+    height: 40px;
+    background-color: #264653;
+    color: whitesmoke; 
+`
 
 
 

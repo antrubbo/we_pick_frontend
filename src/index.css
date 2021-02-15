@@ -119,6 +119,7 @@ Iframe {
 
 .one-choice-div {
   display: flex;
+  justify-content: space-around;
 }
 
 .imgAndButtons {
@@ -130,7 +131,7 @@ Iframe {
   border: none;
   margin: 2px;
   background-color: #264653;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Carter One', cursive;
   color: whitesmoke;
 }
 
@@ -139,14 +140,16 @@ Iframe {
   border: 1px solid black;
   border-radius: 10px;
   margin: 5px;
+  width: 70%;
 }
 
 .titleDescription {
+  /* margin: 50px; */
   display: flex;
   flex-direction: column;
   font-family: 'Carter One', cursive;
   justify-content: space-evenly;
-  align-items: center;
+  /* align-items: center; */
 }
 
 #choice-description {

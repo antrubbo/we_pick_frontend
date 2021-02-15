@@ -29,6 +29,7 @@ const UserSearchDiv = styled.div`
     flex-direction: column;
     align-items: center;
     margin: 40px;
+    margin-left: 0;
 `
 
 const Input = styled.input`

@@ -2,7 +2,7 @@ import { Route, Switch } from "react-router-dom";
 import {useEffect, useState} from "react"
 import Header from "./items/Header"
 import MakePick from "./pages/MakePick"
-import Account from "./pages/Account"
+// import Account from "./pages/Account"
 import Explore from "./pages/Explore"
 import MoviePage from "./pages/MoviePage"
 import MoviesList from "./pages/MoviesList"
@@ -77,12 +77,12 @@ function App() {
     <div className="App">
       <Header currentUser={currentUser} onLogoutClick={onLogoutClick} onSigninClick={onSigninClick} onSignupClick={onSignupClick}/>
         <Switch>
-          <Route exact path="/user/:id">
+          {/* <Route exact path="/user/:id">
             <Account baseUrl={baseUrl} username={username} setUsername={setUsername} email={email} setEmail={setEmail} currentUser={currentUser} setCurrentUser={setCurrentUser} errors={errors} setErrors={setErrors}/>
-          </Route>
+          </Route> */}
 
           <Route exact path="/user/:id/movieslist/:id">
-            <MoviesList baseUrl={baseUrl} setDetailsMovieId={setDetailsMovieId} currentUser={currentUser} userChoices={userChoices} setUserChoices={setUserChoices}/>
+            <MoviesList baseUrl={baseUrl} setDetailsMovieId={setDetailsMovieId} currentUser={currentUser} setCurrentUser={setCurrentUser} username={username} setUsername={setUsername} email={email} setEmail={setEmail} errors={errors} setErrors={setErrors} userChoices={userChoices} setUserChoices={setUserChoices}/>
           </Route>
 
           <Route exact path="/movie/:id">

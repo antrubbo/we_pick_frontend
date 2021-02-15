@@ -32,7 +32,6 @@ function Explore({
     
     return (
         <div className="container">
-        {/* <> */}
             { signinShow ? <SigninModal show={signinShow} onHide={() => setSigninShow(false)} baseUrl={baseUrl} setUserChoices={setUserChoices} setCurrentUser={setCurrentUser} email={email} setEmail={setEmail} errors={errors} setErrors={setErrors}/> : null }
 
             { signupShow ? <SignupModal show={signupShow} onHide={() => setSignupShow(false)} baseUrl={baseUrl} username={username} setUsername={setUsername} email={email} setEmail={setEmail} currentUser={currentUser} setCurrentUser={setCurrentUser} errors={errors} setErrors={setErrors}/> : null }
@@ -48,11 +47,8 @@ function Explore({
                 <h3 id="carousel-headline-h3">Today's most popular titles:</h3>
                 <MovieCarousel initialMovies={initialMovies} setDetailsMovieId={setDetailsMovieId}/>
             </div>
-            {/* </> */}
         </div>
     )
 }
 
 export default Explore
-
-// setUserChoices, setCurrentUser, email, setEmail, errors, setErrors
