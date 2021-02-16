@@ -17,7 +17,7 @@
   display: flex;
   align-self: center;
   width: 1300px;
-  height: 300px;
+  height: 320px;
   flex-direction: column;
   opacity: 0.9;
   font-family: 'Carter One', cursive;
@@ -81,12 +81,6 @@
   color: whitesmoke;
 }
 
-/* MoviePage Styling --------------------------------------------------------------------------------- */
-
-#moviepage-img {
-  width: 400px;
-}
-
 /* MoviesList Styling --------------------------------------------------------------------------------------- */
 
 .one-choice-div {
@@ -112,7 +106,7 @@
   border: 1px solid black;
   border-radius: 10px;
   margin: 5px;
-  width: 98.75%;
+  width: 99%;
 }
 
 .titleDescription {

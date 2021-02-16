@@ -1,35 +1,39 @@
 import { useEffect, useState } from "react"
 import {useHistory} from "react-router-dom"
-// import Iframe from 'react-iframe'
 import styled from "styled-components"
 import TrailerModal from "../items/TrailerModal"
 
 function MoviePage({baseUrl, detailsMovieId, movieView, setMovieView, currentUser, userChoices, setUserChoices}) {
     const history = useHistory()
     const [showTrailer, setShowTrailer] = useState(false)
-
+    
+    // localStorage.setItem('id', detailsMovieId);
+    const movieId = localStorage.getItem('id')
+    console.log(movieId)
+    console.log(detailsMovieId)
+    
     useEffect(() => {
-        fetch(`${baseUrl}/details`,{
+        fetch(`${baseUrl}/details`, {
             method: "POST", 
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                id: detailsMovieId
+                id: movieId
+                // id: detailsMovieId
             })
         })
         .then(resp => resp.json())
         .then(movieObj => {
-            console.log(movieObj)
             setMovieView(movieObj)
         })
-    }, [detailsMovieId, setMovieView, baseUrl])
+    }, [movieId, setMovieView, baseUrl])
 
-    function onAddMovieClick(movieId) {
+    function onAddMovieClick(mId) {
         if(currentUser) {
             const formData = {
                 list_id: currentUser.lists[0].id,
-                movie_id: movieId
+                movie_id: mId
             }
 
             fetch(`${baseUrl}/movie_choices`, {
@@ -41,7 +45,7 @@ function MoviePage({baseUrl, detailsMovieId, movieView, setMovieView, currentUse
             })
             .then(r => r.json())
             .then((data => {
-                const moviesToAdd = [...userChoices, data]
+                const moviesToAdd = [data, ...userChoices]
                 setUserChoices(moviesToAdd)
                 alert('Movie Added to your Movies List!')
                 history.push(`/user/${currentUser.id}/movieslist/${currentUser.lists[0].id}`)
@@ -52,13 +56,15 @@ function MoviePage({baseUrl, detailsMovieId, movieView, setMovieView, currentUse
     }
 
     if(movieView) {
-        const {id, genres, runtime, overview, title, videos, poster_path,} = movieView
+        const {id, genres, runtime, overview, title, videos, poster_path, release_date} = movieView
+        console.log(movieId)
         return (
             <Wrapper>
                 <InnerDiv>
                 <Sidebar>
                     <MovieTitle>{title}</MovieTitle>
-                    {currentUser && userChoices.some(choice => choice.movie.id === detailsMovieId) ? null : <Button onClick={() => onAddMovieClick(detailsMovieId)}>Add To My Movies List</Button>}
+                    <h3>{release_date.slice(0,4)}</h3>
+                    {currentUser && userChoices.some(choice => choice.movie.id === parseInt(movieId)) ? null : <Button onClick={() => onAddMovieClick(movieId)}>Add To My Movies List</Button>}
                 </Sidebar>
                 <DetailsDiv>
                     <ImgAndButton>
@@ -67,19 +73,12 @@ function MoviePage({baseUrl, detailsMovieId, movieView, setMovieView, currentUse
                     </ImgAndButton>
                     <div className="trailer-div">
                         {showTrailer ? <TrailerModal  show={showTrailer} onHide={() => setShowTrailer(false)} id={id} videos={videos}/> : null}
-                        {/* <Iframe 
-                            width="750px" 
-                            height="500px"
-                            url={`https://www.youtube.com/embed/${videos.results[0].key}`} frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            title={id}
-                            position="relative"/> */}
                     </div>
                     <WrittenDetailsDiv>
-                        <h4><strong>Runtime: {runtime} minutes</strong></h4>
-                        <h4><strong>Description:</strong></h4>
+                        <h4>Runtime: {runtime} minutes</h4>
+                        <h4>Description:</h4>
                         <p>{overview}</p>
-                        <h4><strong>Genres:</strong></h4>
+                        <h4>Genres:</h4>
                         <ul>
                             {genres.map(genre => <li key={genre.id}>{genre.name}</li>)}
                         </ul>
@@ -89,14 +88,14 @@ function MoviePage({baseUrl, detailsMovieId, movieView, setMovieView, currentUse
             </Wrapper> 
         )
     } else {
-        return <h1>Loading...</h1>
+        return <Loading>Loading...</Loading>
     } 
 }
 
 const Wrapper = styled.div`
     display: flex;
     font-family: 'Carter One', cursive;
-    color: 264653;
+    color: #264653;
     height: 100vh;
 `
 
@@ -105,6 +104,8 @@ const InnerDiv = styled.div`
 `
 
 const ImgAndButton = styled.div`
+    display: flex;
+    flex-direction: column;
 `
 
 const Sidebar = styled.div`
@@ -120,13 +121,19 @@ const MovieTitle = styled.h2`
 
 `
 
+const Loading = styled.h1`
+    text-align: center;
+    font-family: 'Carter One', cursive;
+    color: #264653;
+`
+
 const MovieImg = styled.img`
     width: 400px;
     height: auto;
 `
 
 const TrailerButton = styled.button`
-    margin-top: 20px;
+    margin-top: 10px;
     height: 40px;
     width: 400px;
     border: none;
@@ -143,7 +150,10 @@ const DetailsDiv = styled.div`
 `
 
 const WrittenDetailsDiv = styled.div`
-
+    display: flex;
+    flex-direction: column;
+    // justify-content: space-between;
+    padding: 30px;
 `
 
 const Button = styled.button`
@@ -153,7 +163,6 @@ const Button = styled.button`
     border: none;
     background-color: #264653;
     color: whitesmoke; 
-    border: none;
     border-radius: 5px;
 `
 

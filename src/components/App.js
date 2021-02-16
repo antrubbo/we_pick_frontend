@@ -2,7 +2,6 @@ import { Route, Switch } from "react-router-dom";
 import {useEffect, useState} from "react"
 import Header from "./items/Header"
 import MakePick from "./pages/MakePick"
-// import Account from "./pages/Account"
 import Explore from "./pages/Explore"
 import MoviePage from "./pages/MoviePage"
 import MoviesList from "./pages/MoviesList"
@@ -25,6 +24,8 @@ function App() {
   const [signupShow, setSignupShow] = useState(false)
   const [userChoices, setUserChoices] = useState([])
 
+  // console.log(userChoices)
+
   useEffect(() => {
     fetch(`${baseUrl}/movies`)
       .then(resp => resp.json())
@@ -34,14 +35,15 @@ function App() {
   }, [])
 
   // just to seed logged in user
-  useEffect(() => {
-    fetch(`${baseUrl}/users/1`)
-    .then(r => r.json())
-    .then(userObj => {
-      setCurrentUser(userObj)
-      setUserChoices(userObj.movie_choices)  
-    })
-  }, [])
+  // useEffect(() => {
+  //   fetch(`${baseUrl}/users/1`)
+  //   .then(r => r.json())
+  //   .then(userObj => {
+  //     localStorage.setItem('listId', userObj.lists[0].id);
+  //     setCurrentUser(userObj)
+  //     setUserChoices(userObj.movie_choices)  
+  //   })
+  // }, [])
 
   function onSigninClick() {
     setSigninShow(!signinShow)
@@ -77,10 +79,6 @@ function App() {
     <div className="App">
       <Header currentUser={currentUser} onLogoutClick={onLogoutClick} onSigninClick={onSigninClick} onSignupClick={onSignupClick}/>
         <Switch>
-          {/* <Route exact path="/user/:id">
-            <Account baseUrl={baseUrl} username={username} setUsername={setUsername} email={email} setEmail={setEmail} currentUser={currentUser} setCurrentUser={setCurrentUser} errors={errors} setErrors={setErrors}/>
-          </Route> */}
-
           <Route exact path="/user/:id/movieslist/:id">
             <MoviesList baseUrl={baseUrl} setDetailsMovieId={setDetailsMovieId} currentUser={currentUser} setCurrentUser={setCurrentUser} username={username} setUsername={setUsername} email={email} setEmail={setEmail} errors={errors} setErrors={setErrors} userChoices={userChoices} setUserChoices={setUserChoices}/>
           </Route>

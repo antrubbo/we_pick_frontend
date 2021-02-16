@@ -2,7 +2,6 @@ import {useHistory} from "react-router-dom"
 import {useState} from "react"
 import styled from "styled-components"
 import EditModal from "../items/EditModal"
-// import MoviePage from "./MoviePage"
 
 function MoviesList({baseUrl, currentUser, setCurrentUser, setDetailsMovieId, userChoices, setUserChoices, username, setUsername, email, setEmail, errors, setErrors}) {
     const history = useHistory()
@@ -30,7 +29,8 @@ function MoviesList({baseUrl, currentUser, setCurrentUser, setDetailsMovieId, us
     // MovieList functions ------------------------------------------------------------------------------------------------
 
     function onChoiceClick(choice) {
-        setDetailsMovieId(choice.movie.id)
+        localStorage.setItem('id', choice.movie.id);
+        // setDetailsMovieId(choice.movie.id)
         history.push(`/movie/${choice.movie.id}`)
     }
 
@@ -66,30 +66,35 @@ function MoviesList({baseUrl, currentUser, setCurrentUser, setDetailsMovieId, us
                 </div>
     })
 
-    return(
-        <Wrapper>
-            <Sidebar>
-                <h3>Welcome Back, {currentUser.username}!</h3>
-                <Buttons>
-                    <Button onClick={handleEdit}>Edit Account</Button>
-                    {editModalShow ? <EditModal show={editModalShow} onHide={() => setEditModalShow(false)} baseUrl={baseUrl} currentUser={currentUser} setCurrentUser={setCurrentUser} username={username} setUsername={setUsername} email={email} setEmail={setEmail} errors={errors} setErrors={setErrors}/> : null}
-                    <Button onClick={onDeleteClick}>Delete Account</Button>
-                </Buttons>
-            </Sidebar>
-            <AllChoicesDiv>
-                {mappedChoices.length === 0 ? <NoChoices>Looks like you need to make some selections!</NoChoices> : mappedChoices}
-            </AllChoicesDiv>
-                { mappedChoices.length === 0 ? null : <TitleDiv>
-                    <MovieListTitle>My Movies List</MovieListTitle>
-                </TitleDiv>}
-        </Wrapper>
-    )
+    if (currentUser) {
+        return(
+            <Wrapper>
+                <Sidebar>
+                    <h3>Welcome Back, {currentUser.username}!</h3>
+                    <Buttons>
+                        <Button onClick={handleEdit}>Edit Account</Button>
+                        {editModalShow ? <EditModal show={editModalShow} onHide={() => setEditModalShow(false)} baseUrl={baseUrl} currentUser={currentUser} setCurrentUser={setCurrentUser} username={username} setUsername={setUsername} email={email} setEmail={setEmail} errors={errors} setErrors={setErrors}/> : null}
+                        <Button onClick={onDeleteClick}>Delete Account</Button>
+                    </Buttons>
+                </Sidebar>
+                <AllChoicesDiv>
+                    {mappedChoices.length === 0 ? <NoChoices>Looks like you need to make some selections!</NoChoices> : mappedChoices}
+                </AllChoicesDiv>
+                    { mappedChoices.length === 0 ? null : <TitleDiv>
+                        <MovieListTitle>My Movies List</MovieListTitle>
+                    </TitleDiv>}
+            </Wrapper>
+        )
+    } else {
+        return <Loading>Loading...</Loading>
+    }
 }
 
 const Wrapper = styled.div`
     display: flex;
     background-color: #F7FFF7;
-    height: 100vh;
+    min-height: 900px;
+    height: 100%;
     color: #264653;
 `
 
@@ -150,6 +155,12 @@ const Button = styled.button`
 const TitleAndDate = styled.div`
     display: flex;
     flex-direction: column;
+`
+
+const Loading = styled.h1`
+    text-align: center;
+    font-family: 'Carter One', cursive;
+    color: #264653;
 `
 
 

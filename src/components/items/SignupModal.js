@@ -33,6 +33,7 @@ function SignupModal (props) {
               } else {
                 alert (`You've been successfully signed up, ${userObj.username}!`)
                 setCurrentUser(userObj)
+                localStorage.setItem('listId', userObj.lists[0].id);
                 setErrors("")
                 onHide()
                 history.push(`/user/${userObj.id}/movieslist/${userObj.lists[0].id}`)

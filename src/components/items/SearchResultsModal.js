@@ -23,7 +23,10 @@ function SearchResultsModal(props) {
         })
         .then(r => r.json())
         .then(movie => {
-            setDetailsMovieId(movie.id)
+            localStorage.setItem('id', movie.id);
+            // const movieId = localStorage.getItem('id')
+            // console.log(movieId)
+            // setDetailsMovieId(movie.id)
             history.push(`/movie/${movie.id}`)
         })
     }

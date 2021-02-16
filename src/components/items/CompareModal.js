@@ -7,7 +7,8 @@ function CompareModal (props) {
     const {onHide, matchedMovies, setDetailsMovieId} = props
 
     function onLinkClick(movId) {
-        setDetailsMovieId(movId)
+      localStorage.setItem('id', movId);
+        // setDetailsMovieId(movId)
         onHide()
     }
 

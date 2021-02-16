@@ -26,6 +26,7 @@ function SigninModal (props) {
               } else {
                   setCurrentUser(userObj)
                   setUserChoices(userObj.movie_choices)
+                  localStorage.setItem('listId', userObj.lists[0].id);
                   setErrors("")
                   onHide()
                   history.push(`/user/${userObj.id}/movieslist/${userObj.lists[0].id}`)

@@ -1,5 +1,6 @@
 import Modal from 'react-bootstrap/Modal'
 import Iframe from 'react-iframe'
+import styled from "styled-components"
 
 function TrailerModal(props) {
 
@@ -17,19 +18,34 @@ function TrailerModal(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body> 
-        <Iframe 
-            width="750px" 
-            height="500px"
-            url={`https://www.youtube.com/embed/${videos.results[0].key}`} frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            title={id}
-            position="relative"/>
+          {videos.results.length === 0 ? <ErrorH3>Sorry, no trailer to display!</ErrorH3> :
+          <Iframe 
+              width="750px" 
+              height="500px"
+              url={`https://www.youtube.com/embed/${videos.results[0].key}`} frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              title={id}
+              position="relative"/> }
         </Modal.Body>
         <Modal.Footer>
-          <button onClick={onHide}>Close</button>
+          <Button onClick={onHide}>Close</Button>
         </Modal.Footer>
       </Modal>
     )
 }
+
+const ErrorH3 = styled.h3`
+  font-family: 'Carter One', cursive;
+  color: #264653;
+`
+
+const Button = styled.button`
+  font-family: 'Carter One', cursive;
+  border: none;
+  background-color: #264653;
+  color: whitesmoke; 
+  border-radius: 5px;
+  width: 75px;
+`
 
 export default TrailerModal

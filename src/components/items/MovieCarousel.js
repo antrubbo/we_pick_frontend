@@ -6,7 +6,8 @@ function MovieCarousel ({initialMovies, setDetailsMovieId}) {
   const history = useHistory()
 
   function onImgClick(m) {
-    setDetailsMovieId(m.id)
+    localStorage.setItem('id', m.id);
+    // setDetailsMovieId(m.id)
     history.push(`/movie/${m.id}`)
   }
 
@@ -19,9 +20,6 @@ function MovieCarousel ({initialMovies, setDetailsMovieId}) {
               src={`https://themoviedb.org/t/p/w300_and_h450_bestv2${m.poster_path}`}
               alt={m.title}
             />
-            {/* <Carousel.Caption className="carousel-caption">
-              <h3>{m.title}  |  {m.release_date.slice(0,4)}</h3>
-            </Carousel.Caption> */}
           </Carousel.Item>
   })
 

@@ -10,16 +10,20 @@ function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) 
     const [secondUser, setSecondUser] = useState(null)
     const [matchedMovies, setMatchedMovies] = useState(null)
     const [compareShow, setCompareShow] = useState(false)
-
-    const {movie_choices} = currentUser
+    
+    // const {movie_choices} = currentUser
+    // console.log(currentUser.lists)
+    const currentUserListId = localStorage.getItem('listId')
+    console.log(currentUserListId)
 
     useEffect(() => {
-        fetch(`${baseUrl}/lists/${currentUser.lists[0].id}/movies`)
+        fetch(`${baseUrl}/lists/${(parseInt(currentUserListId))}/movies`)
         .then(r => r.json())
         .then(movies => {
             setCurrentUserMovies(movies)
         })
-    }, [baseUrl, currentUser.lists])
+   
+    }, [baseUrl, currentUserListId])
 
     function handleUserSearch(usernameValue) {
         fetch(`${baseUrl}/user_search`, {
@@ -58,7 +62,8 @@ function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) 
         }
     }
 
-    const mappedChoices = movie_choices ? (movie_choices.map(choice => {
+    if (currentUser) {
+    const mappedChoices = currentUser.movie_choices ? (currentUser.movie_choices.map(choice => {
         return <Dropdown.Item key={choice.movie.id}>
             {choice.movie.title}
         </Dropdown.Item>
@@ -93,6 +98,9 @@ function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) 
             </Compare>
         </Wrapper>
     )
+    } else {
+        return <Loading>Loading...</Loading>
+    }
 }
 
 const Wrapper = styled.div`
@@ -140,6 +148,12 @@ const Button = styled.button`
 
 const ErrorsH3 = styled.h3`
     text-align: center;
+`
+
+const Loading = styled.h1`
+    text-align: center;
+    font-family: 'Carter One', cursive;
+    color: #264653;
 `
 
 export default MakePick
