@@ -3,6 +3,7 @@ import Search from "../items/Search"
 import SearchResultsModal from "../items/SearchResultsModal"
 import SigninModal from "../items/SigninModal"
 import SignupModal from "../items/SignupModal"
+// import {useState} from "react"
 
 function Explore({
     initialMovies, 

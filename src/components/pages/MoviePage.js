@@ -6,11 +6,9 @@ import TrailerModal from "../items/TrailerModal"
 function MoviePage({baseUrl, detailsMovieId, movieView, setMovieView, currentUser, userChoices, setUserChoices}) {
     const history = useHistory()
     const [showTrailer, setShowTrailer] = useState(false)
-    
-    // localStorage.setItem('id', detailsMovieId);
+
     const movieId = localStorage.getItem('id')
     console.log(movieId)
-    console.log(detailsMovieId)
     
     useEffect(() => {
         fetch(`${baseUrl}/details`, {
@@ -62,7 +60,7 @@ function MoviePage({baseUrl, detailsMovieId, movieView, setMovieView, currentUse
             <Wrapper>
                 <InnerDiv>
                 <Sidebar>
-                    <MovieTitle>{title}</MovieTitle>
+                    <h2>{title}</h2>
                     <h3>{release_date.slice(0,4)}</h3>
                     {currentUser && userChoices.some(choice => choice.movie.id === parseInt(movieId)) ? null : <Button onClick={() => onAddMovieClick(movieId)}>Add To My Movies List</Button>}
                 </Sidebar>

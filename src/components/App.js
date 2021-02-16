@@ -24,8 +24,6 @@ function App() {
   const [signupShow, setSignupShow] = useState(false)
   const [userChoices, setUserChoices] = useState([])
 
-  // console.log(userChoices)
-
   useEffect(() => {
     fetch(`${baseUrl}/movies`)
       .then(resp => resp.json())

@@ -11,8 +11,6 @@ function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) 
     const [matchedMovies, setMatchedMovies] = useState(null)
     const [compareShow, setCompareShow] = useState(false)
     
-    // const {movie_choices} = currentUser
-    // console.log(currentUser.lists)
     const currentUserListId = localStorage.getItem('listId')
     console.log(currentUserListId)
 
@@ -63,41 +61,41 @@ function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) 
     }
 
     if (currentUser) {
-    const mappedChoices = currentUser.movie_choices ? (currentUser.movie_choices.map(choice => {
-        return <Dropdown.Item key={choice.movie.id}>
-            {choice.movie.title}
-        </Dropdown.Item>
-    })) : null
+        const mappedChoices = currentUser.movie_choices ? (currentUser.movie_choices.map(choice => {
+            return <Dropdown.Item key={choice.movie.id}>
+                {choice.movie.title}
+            </Dropdown.Item>
+        })) : null
 
-    return (
-        <Wrapper>
-            <Sidebar>
-                <h3>Compare Your Picks!</h3>
-                <UserToggle className="user-list">
-                    <Dropdown>
-                        <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            {currentUser.username}'s Movies
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            {mappedChoices}
-                        </Dropdown.Menu>
-                    </Dropdown>
-                </UserToggle>
-            </Sidebar>
-            <Compare>
-                <UserSearch usernameValue={usernameValue} setUsernameValue={setUsernameValue} handleUserSearch={handleUserSearch}/>
-                
-                {errors !== "" ? <ErrorsH3 key={errors} style={{ color: 'red' }}>{errors}</ErrorsH3> : null}
+        return (
+            <Wrapper>
+                <Sidebar>
+                    <h3>Compare Your Picks!</h3>
+                    <UserToggle className="user-list">
+                        <Dropdown>
+                            <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                {currentUser.username}'s Movies
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                {mappedChoices}
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </UserToggle>
+                </Sidebar>
+                <Compare>
+                    <UserSearch usernameValue={usernameValue} setUsernameValue={setUsernameValue} handleUserSearch={handleUserSearch}/>
+                    
+                    {errors !== "" ? <ErrorsH3 key={errors} style={{ color: 'red' }}>{errors}</ErrorsH3> : null}
 
-                <CompareList className="compare-list">
-                    {secondUser ? <h3>Let's see what you and {secondUser[0].username} want to watch!</h3> : null}
-                    {secondUser ? <Button onClick={() => onCompareClick(secondUser[0].lists[0].movies)}>Compare Lists</Button> : null}
-                </CompareList>
+                    <CompareList className="compare-list">
+                        {secondUser ? <h3>Let's see what you and {secondUser[0].username} want to watch!</h3> : null}
+                        {secondUser ? <Button onClick={() => onCompareClick(secondUser[0].lists[0].movies)}>Compare Lists</Button> : null}
+                    </CompareList>
 
-                {compareShow ? <CompareModal show={compareShow} onHide={() => setCompareShow(false)} matchedMovies={matchedMovies} errors={errors} setDetailsMovieId={setDetailsMovieId}/> : null}
-            </Compare>
-        </Wrapper>
-    )
+                    {compareShow ? <CompareModal show={compareShow} onHide={() => setCompareShow(false)} matchedMovies={matchedMovies} errors={errors} setDetailsMovieId={setDetailsMovieId}/> : null}
+                </Compare>
+            </Wrapper>
+        )
     } else {
         return <Loading>Loading...</Loading>
     }
