@@ -62,6 +62,7 @@ function MoviePage({baseUrl, detailsMovieId, movieView, setMovieView, currentUse
                 <Sidebar>
                     <h2>{title}</h2>
                     <h3>{release_date.slice(0,4)}</h3>
+                    <h4>{runtime} minutes</h4>
                     {currentUser && userChoices.some(choice => choice.movie.id === parseInt(movieId)) ? null : <Button onClick={() => onAddMovieClick(movieId)}>Add To My Movies List</Button>}
                 </Sidebar>
                 <DetailsDiv>
@@ -110,19 +111,17 @@ const Sidebar = styled.div`
     padding: 50px;
     text-align: center;
     font-family: 'Carter One', cursive;
-    color: whitesmoke;
+    color: #264653;
     width: 20vw;
     background-color: #E9C46A;
-`
-
-const MovieTitle = styled.h2`
-
 `
 
 const Loading = styled.h1`
     text-align: center;
     font-family: 'Carter One', cursive;
     color: #264653;
+    margin-top: 20px;
+    height: 100vh;
 `
 
 const MovieImg = styled.img`

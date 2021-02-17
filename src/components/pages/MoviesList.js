@@ -50,17 +50,11 @@ function MoviesList({baseUrl, currentUser, setCurrentUser, setDetailsMovieId, us
     const mappedChoices = userChoices.map(choice => {
         return <div className="overall-choice-div" key={choice.movie.id}>
                     <div className="one-choice-div">
+                        <h4>{choice.movie.title}</h4>
                         <div className="imgAndButtons">
-                            <img src={`https://themoviedb.org/t/p/w300_and_h450_bestv2${choice.movie.poster_path}`} alt={choice.movie.title}/>
+                            <img id="choice-img" src={`https://themoviedb.org/t/p/w300_and_h450_bestv2${choice.movie.poster_path}`} alt={choice.movie.title}/>
                             <button className="choice-buttons" onClick={() => onChoiceClick(choice)}>View Movie Details</button>
                             <button className="choice-buttons" onClick={(evt) => onDeleteChoice(evt, choice)}>Delete Movie</button>
-                        </div>
-                        <div className="titleDescription">
-                            <TitleAndDate>
-                                <h4>{choice.movie.title}</h4>
-                                <h5>{choice.movie.release_date.slice(0,4)}</h5>
-                            </TitleAndDate>
-                            <p id="choice-description">{choice.movie.description}</p>
                         </div>
                     </div>
                 </div>
@@ -111,7 +105,9 @@ const AllChoicesDiv = styled.div`
     font-family: 'Carter One', cursive;
     width: 60vw;
     display: flex;
-    flex-direction: column;
+    // flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
 `
 
 const TitleDiv = styled.div`
@@ -152,15 +148,13 @@ const Button = styled.button`
     border: none;
     border-radius: 5px;
 `
-const TitleAndDate = styled.div`
-    display: flex;
-    flex-direction: column;
-`
 
 const Loading = styled.h1`
     text-align: center;
     font-family: 'Carter One', cursive;
     color: #264653;
+    margin-top: 20px;
+    height: 100vh;
 `
 
 
