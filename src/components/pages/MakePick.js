@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react"
+import {useHistory} from "react-router-dom"
 import UserSearch from "../items/UserSearch"
 import Dropdown from 'react-bootstrap/Dropdown'
 import styled from "styled-components"
@@ -10,9 +11,13 @@ function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) 
     const [secondUser, setSecondUser] = useState(null)
     const [matchedMovies, setMatchedMovies] = useState(null)
     const [compareShow, setCompareShow] = useState(false)
+    const [genres, setGenres] = useState([])
+
+    const history = useHistory()
+
+    console.log(genres)
     
     const currentUserListId = localStorage.getItem('listId')
-    console.log(currentUserListId)
 
     useEffect(() => {
         fetch(`${baseUrl}/lists/${(parseInt(currentUserListId))}/movies`)
@@ -20,6 +25,16 @@ function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) 
         .then(movies => {
             setCurrentUserMovies(movies)
         })
+
+        fetch(`${baseUrl}/recommendation`)
+            .then(r => r.json())
+            .then(genreObj => {
+                const allGenres = []
+                genreObj.forEach(genre => {
+                    allGenres.push(genre.table)
+                })
+                setGenres(allGenres)
+            })
    
     }, [baseUrl, currentUserListId])
 
@@ -44,6 +59,16 @@ function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) 
         })
     }
 
+    function onChoiceDropdown(choiceId) {
+        localStorage.setItem('id', choiceId);
+        history.push(`/movie/${choiceId}`)
+    }
+
+    function onGenreDropdown() {
+
+    }
+
+
     //compare users' lists functionality-------------------------------------------------------|
 
     function onCompareClick(secondUserMovies) {
@@ -63,9 +88,16 @@ function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) 
     if (currentUser) {
         const mappedChoices = currentUser.movie_choices ? (currentUser.movie_choices.map(choice => {
             return <Dropdown.Item key={choice.movie.id}>
-                {choice.movie.title}
+                <button onClick={() => onChoiceDropdown(choice.movie.id)}>{choice.movie.title}</button>
             </Dropdown.Item>
         })) : null
+        console.log(currentUser.movie_choices)
+
+        const genreNames = genres.map(genreObj => {
+            return <Dropdown.Item key={genreObj.id}>
+                <button>{genreObj.name}</button>
+            </Dropdown.Item>
+        })
 
         return (
             <Wrapper>
@@ -78,6 +110,16 @@ function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) 
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
                                 {mappedChoices}
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </UserToggle>
+                    <UserToggle className="user-list">
+                        <Dropdown>
+                            <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                Recommendation by Genre
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                {genreNames}
                             </Dropdown.Menu>
                         </Dropdown>
                     </UserToggle>

@@ -8,7 +8,6 @@ function MoviePage({baseUrl, detailsMovieId, movieView, setMovieView, currentUse
     const [showTrailer, setShowTrailer] = useState(false)
 
     const movieId = localStorage.getItem('id')
-    console.log(movieId)
     
     useEffect(() => {
         fetch(`${baseUrl}/details`, {
@@ -55,7 +54,6 @@ function MoviePage({baseUrl, detailsMovieId, movieView, setMovieView, currentUse
 
     if(movieView) {
         const {id, genres, runtime, overview, title, videos, poster_path, release_date} = movieView
-        console.log(movieId)
         return (
             <Wrapper>
                 <InnerDiv>

@@ -2,12 +2,13 @@ import '../stylesheets/explore.css'
 
 function Search({searchTerms, setSearchTerms, handleSearch}) {
 
-    function onSearch(searchTerms) {
+    function onSearch(evt, searchTerms) {
+        evt.preventDefault()
         handleSearch(searchTerms)
     }
     
     return (
-        <div className="search">
+    <form className="search" onSubmit={(evt) => onSearch(evt, searchTerms)}>
             <input
                 type="text"
                 className = "searchTerm"
@@ -15,8 +16,8 @@ function Search({searchTerms, setSearchTerms, handleSearch}) {
                 value={searchTerms}
                 onChange={(e) => setSearchTerms(e.target.value)}
                 /> 
-            <button type="submit" onClick={() => onSearch(searchTerms)}>Search</button>
-        </div>
+            <button type="submit">Search</button>
+    </form>
     )
 }
 

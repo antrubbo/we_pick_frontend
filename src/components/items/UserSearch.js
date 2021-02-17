@@ -2,14 +2,15 @@ import styled from "styled-components"
 
 function UserSearch({usernameValue, setUsernameValue, handleUserSearch}) {
 
-    function onUsernameSearch(usernameValue) {
+    function onUsernameSearch(evt, usernameValue) {
+        evt.preventDefault()
         handleUserSearch(usernameValue)
     }
     
     return (
         <UserSearchDiv>
             <Headline>Find Your Watching Partner</Headline>
-            <SearchBar>
+            <SearchBar onSubmit={(evt) => onUsernameSearch(evt, usernameValue)}>
                 <Input
                     type="text"
                     // className = "user-search-input"
@@ -17,7 +18,7 @@ function UserSearch({usernameValue, setUsernameValue, handleUserSearch}) {
                     value={usernameValue}
                     onChange={(e) => setUsernameValue(e.target.value)}
                     /> 
-                <Button type="submit" onClick={() => onUsernameSearch(usernameValue)}>Search</Button>
+                <Button type="submit">Search</Button>
             </SearchBar>
         </UserSearchDiv>
     )
@@ -35,6 +36,7 @@ const UserSearchDiv = styled.div`
 const Input = styled.input`
     width: 600px;
     color: #264653;
+    border-color: #264653;
 `
 
 const Button = styled.button`
@@ -47,7 +49,7 @@ const Headline = styled.h3`
     font-family: 'Carter One', cursive; 
 `
 
-const SearchBar = styled.div`
+const SearchBar = styled.form`
     display: flex;
     padding: 10px;
     margin-top: 20px;

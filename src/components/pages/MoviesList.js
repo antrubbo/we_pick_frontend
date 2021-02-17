@@ -1,4 +1,4 @@
-import {useHistory} from "react-router-dom"
+import {useHistory, Redirect} from "react-router-dom"
 import {useState} from "react"
 import styled from "styled-components"
 import EditModal from "../items/EditModal"
@@ -47,6 +47,10 @@ function MoviesList({baseUrl, currentUser, setCurrentUser, setDetailsMovieId, us
         alert("Movie Deleted!")
     }
 
+    function onFindClick() {
+        history.push("/")
+    }
+
     const mappedChoices = userChoices.map(choice => {
         return <div className="overall-choice-div" key={choice.movie.id}>
                     <div className="one-choice-div">
@@ -69,6 +73,7 @@ function MoviesList({baseUrl, currentUser, setCurrentUser, setDetailsMovieId, us
                         <Button onClick={handleEdit}>Edit Account</Button>
                         {editModalShow ? <EditModal show={editModalShow} onHide={() => setEditModalShow(false)} baseUrl={baseUrl} currentUser={currentUser} setCurrentUser={setCurrentUser} username={username} setUsername={setUsername} email={email} setEmail={setEmail} errors={errors} setErrors={setErrors}/> : null}
                         <Button onClick={onDeleteClick}>Delete Account</Button>
+                        <Button onClick={onFindClick}>Find a Movie!</Button>
                     </Buttons>
                 </Sidebar>
                 <AllChoicesDiv>
@@ -136,7 +141,7 @@ const Buttons = styled.div`
     flex-direction: column;
     align-items: center;
     margin-top: 50px;
-    height: 100px;
+    height: 150px;
     justify-content: space-between;
 `
 
