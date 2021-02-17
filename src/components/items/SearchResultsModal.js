@@ -1,8 +1,9 @@
 import Modal from 'react-bootstrap/Modal'
 import {Link, useHistory} from "react-router-dom" 
+import styled from "styled-components"
 
 function SearchResultsModal(props) {
-    const {searchResults, onHide, setDetailsMovieId} = props
+    const {searchResults, onHide} = props
     const history = useHistory()
 
     function onResultClick(r) {
@@ -24,16 +25,13 @@ function SearchResultsModal(props) {
         .then(r => r.json())
         .then(movie => {
             localStorage.setItem('id', movie.id);
-            // const movieId = localStorage.getItem('id')
-            // console.log(movieId)
-            // setDetailsMovieId(movie.id)
             history.push(`/movie/${movie.id}`)
         })
     }
 
     const mappedResults = searchResults.map(r => {
         return <li key={r.table.id}>
-            <Link to="" onClick={() => onResultClick(r)}>{r.table.title} {r.table.release_date ? `| ${r.table.release_date.slice(0,4)}` : null}</Link>
+            <A to="" onClick={() => onResultClick(r)}>{r.table.title} {r.table.release_date ? `| ${r.table.release_date.slice(0,4)}` : null}</A>
         </li>
     })
 
@@ -55,10 +53,27 @@ function SearchResultsModal(props) {
             </ul>
         </Modal.Body>
         <Modal.Footer>
-          <button onClick={onHide}>Close</button>
+          <Button onClick={onHide}>Close</Button>
         </Modal.Footer>
       </Modal>
     );
   }
+
+  const A = styled.a`
+    text-decoration: none;
+    font-family: 'Carter One', cursive;
+    color: #264653;
+  `
+
+  const Button = styled.button`
+    margin-top: 30px;
+    height: 30px;
+    width: 100px;
+    border: none;
+    background-color: #264653;
+    color: whitesmoke; 
+    border-radius: 5px;
+    font-family: 'Carter One', cursive;
+`
 
 export default SearchResultsModal

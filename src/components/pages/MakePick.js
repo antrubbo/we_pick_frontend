@@ -12,10 +12,10 @@ function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) 
     const [matchedMovies, setMatchedMovies] = useState(null)
     const [compareShow, setCompareShow] = useState(false)
     const [genres, setGenres] = useState([])
-
+    const [recommendation, setRecommendation] = useState(null)
+    const [clicked, setClicked] = useState(false)
+    
     const history = useHistory()
-
-    console.log(genres)
     
     const currentUserListId = localStorage.getItem('listId')
 
@@ -26,7 +26,7 @@ function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) 
             setCurrentUserMovies(movies)
         })
 
-        fetch(`${baseUrl}/recommendation`)
+        fetch(`${baseUrl}/genre_list`)
             .then(r => r.json())
             .then(genreObj => {
                 const allGenres = []
@@ -64,8 +64,45 @@ function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) 
         history.push(`/movie/${choiceId}`)
     }
 
-    function onGenreDropdown() {
+    function onGenreDropdown(genreId) {
+        fetch(`${baseUrl}/recommendation`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                genre_id: genreId
+            })
+        })
+            .then(r => r.json())
+            .then(recsArray => {
+                const newArray = recsArray.table.results
+                const movieRec = newArray[Math.floor(newArray.length * Math.random())].table
+                setRecommendation(movieRec)
+                setClicked(!clicked)
+            })
+    }
 
+    function onRecClick(r) {
+        fetch(`${baseUrl}/movies`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                title: r.title,
+                description: r.overview,
+                release_date: r.release_date,
+                genres: r.genre_ids,
+                poster_path: r.poster_path,
+                search_id: r.id
+            })
+        })
+        .then(r => r.json())
+        .then(movieObj => {
+            localStorage.setItem('id', movieObj.id);
+            history.push(`/movie/${movieObj.id}`)
+        })
     }
 
 
@@ -87,16 +124,11 @@ function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) 
 
     if (currentUser) {
         const mappedChoices = currentUser.movie_choices ? (currentUser.movie_choices.map(choice => {
-            return <Dropdown.Item key={choice.movie.id}>
-                <button onClick={() => onChoiceDropdown(choice.movie.id)}>{choice.movie.title}</button>
-            </Dropdown.Item>
+            return <Dropdown.Item key={choice.movie.id} onSelect={() => onChoiceDropdown(choice.movie.id)}>{choice.movie.title}</Dropdown.Item>
         })) : null
-        console.log(currentUser.movie_choices)
 
         const genreNames = genres.map(genreObj => {
-            return <Dropdown.Item key={genreObj.id}>
-                <button>{genreObj.name}</button>
-            </Dropdown.Item>
+            return <Dropdown.Item key={genreObj.id} onSelect={() => onGenreDropdown(genreObj.id)}>{genreObj.name}</Dropdown.Item>
         })
 
         return (
@@ -123,6 +155,7 @@ function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) 
                             </Dropdown.Menu>
                         </Dropdown>
                     </UserToggle>
+                    {clicked ? <RecLink onClick={() => onRecClick(recommendation)}>See Details for {recommendation.title}</RecLink> : null}
                 </Sidebar>
                 <Compare>
                     <UserSearch usernameValue={usernameValue} setUsernameValue={setUsernameValue} handleUserSearch={handleUserSearch}/>
@@ -194,6 +227,13 @@ const Loading = styled.h1`
     text-align: center;
     font-family: 'Carter One', cursive;
     color: #264653;
+`
+
+const RecLink = styled.h3`
+    text-decoration: none;
+    color: #264653;
+    font-size: large;
+    margin-top: 40px;
 `
 
 export default MakePick

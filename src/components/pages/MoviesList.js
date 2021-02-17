@@ -1,4 +1,4 @@
-import {useHistory, Redirect} from "react-router-dom"
+import {useHistory} from "react-router-dom"
 import {useState} from "react"
 import styled from "styled-components"
 import EditModal from "../items/EditModal"
@@ -35,7 +35,6 @@ function MoviesList({baseUrl, currentUser, setCurrentUser, setDetailsMovieId, us
     }
 
     function onDeleteChoice(evt, choice) {
-        alert("Delete Movie - Are you sure?")
         fetch(`${baseUrl}/movie_choices/${choice.id}`, {
             method: "DELETE"
         })

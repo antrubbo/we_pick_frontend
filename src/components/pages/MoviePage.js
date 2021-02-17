@@ -6,9 +6,10 @@ import TrailerModal from "../items/TrailerModal"
 function MoviePage({baseUrl, detailsMovieId, movieView, setMovieView, currentUser, userChoices, setUserChoices}) {
     const history = useHistory()
     const [showTrailer, setShowTrailer] = useState(false)
-
     const movieId = localStorage.getItem('id')
-    
+    // console.log(movieView)
+    // console.log(movieId)
+
     useEffect(() => {
         fetch(`${baseUrl}/details`, {
             method: "POST", 
@@ -32,7 +33,6 @@ function MoviePage({baseUrl, detailsMovieId, movieView, setMovieView, currentUse
                 list_id: currentUser.lists[0].id,
                 movie_id: mId
             }
-
             fetch(`${baseUrl}/movie_choices`, {
                 method:"POST",
                 headers: {
@@ -51,7 +51,6 @@ function MoviePage({baseUrl, detailsMovieId, movieView, setMovieView, currentUse
             alert('Sign Up or Log In!')
         }
     }
-
     if(movieView) {
         const {id, genres, runtime, overview, title, videos, poster_path, release_date} = movieView
         return (
@@ -61,7 +60,7 @@ function MoviePage({baseUrl, detailsMovieId, movieView, setMovieView, currentUse
                     <h2>{title}</h2>
                     <h3>{release_date.slice(0,4)}</h3>
                     <h4>{runtime} minutes</h4>
-                    {currentUser && userChoices.some(choice => choice.movie.id === parseInt(movieId)) ? null : <Button onClick={() => onAddMovieClick(movieId)}>Add To My Movies List</Button>}
+                    {currentUser && userChoices.some(choice => choice.movie.id === parseInt(movieId)) ? null : <Button onClick={() => onAddMovieClick(parseInt(movieId))}>Add To My Movies List</Button>}
                 </Sidebar>
                 <DetailsDiv>
                     <ImgAndButton>
