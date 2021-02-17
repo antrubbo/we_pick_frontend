@@ -1,5 +1,5 @@
 import Modal from 'react-bootstrap/Modal'
-import {Link, useHistory} from "react-router-dom" 
+import {useHistory} from "react-router-dom" 
 import styled from "styled-components"
 
 function SearchResultsModal(props) {
