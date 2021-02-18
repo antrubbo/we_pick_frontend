@@ -59,7 +59,6 @@ function MoviePage({baseUrl, detailsMovieId, movieView, setMovieView, currentUse
                 <Sidebar>
                     <h2>{title}</h2>
                     <h3>{release_date.slice(0,4)}</h3>
-                    <h4>{runtime} minutes</h4>
                     {currentUser && userChoices.some(choice => choice.movie.id === parseInt(movieId)) ? null : <Button onClick={() => onAddMovieClick(parseInt(movieId))}>Add To My Movies List</Button>}
                 </Sidebar>
                 <DetailsDiv>
@@ -71,12 +70,12 @@ function MoviePage({baseUrl, detailsMovieId, movieView, setMovieView, currentUse
                         {showTrailer ? <TrailerModal  show={showTrailer} onHide={() => setShowTrailer(false)} id={id} videos={videos}/> : null}
                     </div>
                     <WrittenDetailsDiv>
-                        <h4>Runtime: {runtime} minutes</h4>
-                        <h4>Description:</h4>
-                        <p>{overview}</p>
-                        <h4>Genres:</h4>
+                        <h4>{runtime} minutes</h4>
+                        {/* <h4>Description:</h4> */}
+                        <OverviewP>{overview}</OverviewP>
+                        {/* <h4>Genres:</h4> */}
                         <ul>
-                            {genres.map(genre => <li key={genre.id}>{genre.name}</li>)}
+                            {genres.map(genre => <GenreLi key={genre.id}>{genre.name}</GenreLi>)}
                         </ul>
                     </WrittenDetailsDiv>
                 </DetailsDiv>
@@ -146,8 +145,14 @@ const DetailsDiv = styled.div`
 const WrittenDetailsDiv = styled.div`
     display: flex;
     flex-direction: column;
-    // justify-content: space-between;
+    justify-content: space-between;
     padding: 30px;
+    width: 40%;
+    height: 40%;
+`
+
+const OverviewP = styled.p`
+    font-family: 'Josefin Sans', sans-serif;
 `
 
 const Button = styled.button`
@@ -158,6 +163,10 @@ const Button = styled.button`
     background-color: #264653;
     color: whitesmoke; 
     border-radius: 5px;
+`
+
+const GenreLi = styled.li`
+    font-family: 'Josefin Sans', sans-serif;
 `
 
 export default MoviePage

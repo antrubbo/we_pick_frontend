@@ -37,10 +37,11 @@ const Input = styled.input`
     width: 600px;
     color: #264653;
     border-color: #264653;
+    font-family: 'Josefin Sans', sans-serif;
 `
 
 const Button = styled.button`
-    width: 100px;
+    width: 120px;
     background-color: #264653;
     color: whitesmoke;
 `

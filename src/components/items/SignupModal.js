@@ -54,18 +54,18 @@ function SignupModal (props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body> 
-        <div className="signup-form">
+        <div>
             {errors !== "" ? errors.map(error => <p key={error} style={{ color: 'red' }}>*{error}</p>) : null}
-            <form onSubmit={onFormSubmit}>
-                <input type="text" placeholder="Username.." value={username} onChange={e => setUsername(e.target.value)}></input>
-                <input type="text" placeholder="Email.." value={email} onChange={e => setEmail(e.target.value)}></input>
-                <input type="password" placeholder="Password..." ></input>
-                <input type="submit"></input>
+            <form onSubmit={onFormSubmit} id="edit-user-form">
+                <input className="edit-input" type="text" placeholder="Username.." value={username} onChange={e => setUsername(e.target.value)}></input>
+                <input className="edit-input" type="text" placeholder="Email.." value={email} onChange={e => setEmail(e.target.value)}></input>
+                <input className="edit-input" type="password" placeholder="Password..." ></input>
+                <input className="edit-button" type="submit"></input>
             </form>
         </div>
         </Modal.Body>
         <Modal.Footer>
-          <button onClick={onHide}>Close</button>
+          <button className="close-button" onClick={onHide}>Close</button>
         </Modal.Footer>
       </Modal>
     )

@@ -1,5 +1,6 @@
 import Modal from 'react-bootstrap/Modal'
 
+
 function EditModal (props) {
     const {onHide, baseUrl, currentUser, setCurrentUser, username, setUsername, email, setEmail, errors, setErrors} = props
 
@@ -44,15 +45,15 @@ function EditModal (props) {
         </Modal.Header>
         <Modal.Body> 
             {errors !== "" ? errors.map(error => <p key={error} style={{ color: 'red' }}>*{error}</p>) : null}
-                <form onSubmit={handleSubmit}>  
-                    <input type="text" placeholder="Username.." value={username} onChange={evt => setUsername(evt.target.value)}></input>
-                    <input type="text" placeholder="Email Address.." value={email} onChange={evt => setEmail(evt.target.value)}></input>
-                    <input type="submit" value="Finalize Changes"></input>
-                    <button onClick={() => onHide()}>Cancel</button>
+                <form onSubmit={handleSubmit} id="edit-user-form">  
+                    <input className="edit-input" type="text" placeholder="Username.." value={username} onChange={evt => setUsername(evt.target.value)}></input>
+                    <input className="edit-input" type="text" placeholder="Email Address.." value={email} onChange={evt => setEmail(evt.target.value)}></input>
+                    <input className="edit-button" type="submit" value="Finalize Changes"></input>
+                    <button className="edit-button" onClick={() => onHide()}>Cancel</button>
                 </form>
         </Modal.Body>
         <Modal.Footer>
-          <button onClick={onHide}>Close</button>
+          <button className="close-button" onClick={onHide}>Close</button>
         </Modal.Footer>
       </Modal>
     )

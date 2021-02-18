@@ -61,7 +61,7 @@ function SearchResultsModal(props) {
 
   const A = styled.a`
     text-decoration: none;
-    font-family: 'Carter One', cursive;
+    font-family: 'Josefin Sans', sans-serif;
     color: #264653;
   `
 

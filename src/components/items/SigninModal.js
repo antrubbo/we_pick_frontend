@@ -49,15 +49,15 @@ function SigninModal (props) {
         <Modal.Body> 
         <div>
             {errors !== "" ? <p key={errors} style={{ color: 'red' }}>*{errors}</p> : null}
-            <form onSubmit={onLoginSubmit}>
-                <input type="text" placeholder="Email.." value={email} onChange={(e) => setEmail(e.target.value)}></input>
-                <input type="password" placeholder="Password.." value={fakePassword} onChange={e => setFakePassword(e.target.value)}></input>
-                <input type="submit"></input>
+            <form id="edit-user-form" onSubmit={onLoginSubmit}>
+                <input className = "edit-input" type="text" placeholder="Email.." value={email} onChange={(e) => setEmail(e.target.value)}></input>
+                <input className = "edit-input" type="password" placeholder="Password.." value={fakePassword} onChange={e => setFakePassword(e.target.value)}></input>
+                <input className="edit-button" type="submit"></input>
             </form>
         </div>
         </Modal.Body>
         <Modal.Footer>
-          <button onClick={onHide}>Close</button>
+          <button className="close-button" onClick={onHide}>Close</button>
         </Modal.Footer>
       </Modal>
     )
