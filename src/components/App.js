@@ -1,4 +1,4 @@
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import {useEffect, useState} from "react"
 import Header from "./items/Header"
 import MakePick from "./pages/MakePick"
@@ -9,6 +9,7 @@ import MoviesList from "./pages/MoviesList"
 
 function App() {
   const baseUrl = "http://localhost:3000"
+  const history = useHistory()
 
   const [initialMovies, setInitialMovies] = useState([])
   const [currentUser, setCurrentUser] = useState(null)
@@ -32,6 +33,26 @@ function App() {
       })
   }, [])
 
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if(token) {
+      fetch(`${baseUrl}/profile`, {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      })
+      .then(r => r.json())
+      .then(user => {
+        setCurrentUser(user)
+        setUserChoices(user.movie_choices)
+        localStorage.setItem('listId', user.lists[0].id)
+      })
+    } else {
+      history.push('/')
+    }
+  }, [history])
+
   // just to seed logged in user
   // useEffect(() => {
   //   fetch(`${baseUrl}/users/1`)
@@ -52,6 +73,7 @@ function App() {
   }
 
   function onLogoutClick(){ 
+    localStorage.removeItem('token')
     setCurrentUser(null)
     alert("See ya next time!")
   }
