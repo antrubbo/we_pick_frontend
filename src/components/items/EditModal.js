@@ -2,14 +2,15 @@ import Modal from 'react-bootstrap/Modal'
 
 
 function EditModal (props) {
-    const {onHide, baseUrl, currentUser, setCurrentUser, username, setUsername, email, setEmail, errors, setErrors} = props
+    const {onHide, baseUrl, currentUser, setCurrentUser, username, setUsername, email, setEmail, errors, setErrors, password, setPassword} = props
 
     function handleSubmit(e) {
         e.preventDefault()
         const formData = { 
             id: currentUser.id,
             username : username,
-            email: email 
+            email: email,
+            password: password
         }
 
         fetch(`${baseUrl}/users/${currentUser.id}`, {
@@ -48,6 +49,7 @@ function EditModal (props) {
                 <form onSubmit={handleSubmit} id="edit-user-form">  
                     <input className="edit-input" type="text" placeholder="Username.." value={username} onChange={evt => setUsername(evt.target.value)}></input>
                     <input className="edit-input" type="text" placeholder="Email Address.." value={email} onChange={evt => setEmail(evt.target.value)}></input>
+                    <input className="edit-input" type="password" placeholder="Password.." value={password} onChange={evt => setPassword(evt.target.value)}></input>
                     <input className="edit-button" type="submit" value="Finalize Changes"></input>
                     <button className="edit-button" onClick={() => onHide()}>Cancel</button>
                 </form>

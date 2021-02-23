@@ -3,7 +3,7 @@ import {useState} from "react"
 import styled from "styled-components"
 import EditModal from "../items/EditModal"
 
-function MoviesList({baseUrl, currentUser, setCurrentUser, setDetailsMovieId, userChoices, setUserChoices, username, setUsername, email, setEmail, errors, setErrors}) {
+function MoviesList({baseUrl, currentUser, setCurrentUser, userChoices, setUserChoices, username, setUsername, email, setEmail, errors, setErrors, password, setPassword}) {
     const history = useHistory()
     const [editModalShow, setEditModalShow] = useState(false)
 
@@ -30,7 +30,6 @@ function MoviesList({baseUrl, currentUser, setCurrentUser, setDetailsMovieId, us
 
     function onChoiceClick(choice) {
         localStorage.setItem('id', choice.movie.id);
-        // setDetailsMovieId(choice.movie.id)
         history.push(`/movie/${choice.movie.id}`)
     }
 
@@ -70,7 +69,7 @@ function MoviesList({baseUrl, currentUser, setCurrentUser, setDetailsMovieId, us
                     <h3>Welcome Back, {currentUser.username}!</h3>
                     <Buttons>
                         <Button onClick={handleEdit}>Edit Account</Button>
-                        {editModalShow ? <EditModal show={editModalShow} onHide={() => setEditModalShow(false)} baseUrl={baseUrl} currentUser={currentUser} setCurrentUser={setCurrentUser} username={username} setUsername={setUsername} email={email} setEmail={setEmail} errors={errors} setErrors={setErrors}/> : null}
+                        {editModalShow ? <EditModal show={editModalShow} onHide={() => setEditModalShow(false)} baseUrl={baseUrl} currentUser={currentUser} setCurrentUser={setCurrentUser} username={username} setUsername={setUsername} email={email} setEmail={setEmail} errors={errors} setErrors={setErrors} password={password} setPassword={setPassword}/> : null}
                         <Button onClick={onDeleteClick}>Delete Account</Button>
                         <Button onClick={onFindClick}>Find a Movie!</Button>
                     </Buttons>

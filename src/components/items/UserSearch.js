@@ -1,6 +1,8 @@
 import styled from "styled-components"
+import {useState} from 'react'
 
-function UserSearch({usernameValue, setUsernameValue, handleUserSearch}) {
+function UserSearch({handleUserSearch}) {
+    const [usernameValue, setUsernameValue] = useState("")
 
     function onUsernameSearch(evt, usernameValue) {
         evt.preventDefault()
@@ -13,7 +15,6 @@ function UserSearch({usernameValue, setUsernameValue, handleUserSearch}) {
             <SearchBar onSubmit={(evt) => onUsernameSearch(evt, usernameValue)}>
                 <Input
                     type="text"
-                    // className = "user-search-input"
                     placeholder="Search User by Username..."
                     value={usernameValue}
                     onChange={(e) => setUsernameValue(e.target.value)}

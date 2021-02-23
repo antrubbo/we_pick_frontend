@@ -5,9 +5,8 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import styled from "styled-components"
 import CompareModal from "../items/CompareModal"
 
-function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) {
+function MakePick({baseUrl, currentUser, setErrors, errors}) {
     const [currentUserMovies, setCurrentUserMovies] = useState({})
-    const [usernameValue, setUsernameValue] = useState("")
     const [secondUser, setSecondUser] = useState(null)
     const [matchedMovies, setMatchedMovies] = useState(null)
     const [compareShow, setCompareShow] = useState(false)
@@ -158,7 +157,7 @@ function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) 
                     {clicked ? <RecLink onClick={() => onRecClick(recommendation)}>See Details for {recommendation.title}</RecLink> : null}
                 </Sidebar>
                 <Compare>
-                    <UserSearch usernameValue={usernameValue} setUsernameValue={setUsernameValue} handleUserSearch={handleUserSearch}/>
+                    <UserSearch handleUserSearch={handleUserSearch}/>
                     
                     {errors !== "" ? <ErrorsH3 key={errors} style={{ color: 'red' }}>{errors}</ErrorsH3> : null}
 
@@ -167,7 +166,7 @@ function MakePick({baseUrl, currentUser, setErrors, errors, setDetailsMovieId}) 
                         {secondUser ? <Button onClick={() => onCompareClick(secondUser[0].lists[0].movies)}>Compare Lists</Button> : null}
                     </CompareList>
 
-                    {compareShow ? <CompareModal show={compareShow} onHide={() => setCompareShow(false)} matchedMovies={matchedMovies} errors={errors} setDetailsMovieId={setDetailsMovieId}/> : null}
+                    {compareShow ? <CompareModal show={compareShow} onHide={() => setCompareShow(false)} matchedMovies={matchedMovies} errors={errors}/> : null}
                 </Compare>
             </Wrapper>
         )

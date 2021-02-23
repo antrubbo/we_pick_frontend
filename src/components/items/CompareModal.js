@@ -6,7 +6,6 @@ function CompareModal (props) {
 
   function onLinkClick(movId) {
     localStorage.setItem('id', movId);
-      // setDetailsMovieId(movId)
     onHide()
   }
 

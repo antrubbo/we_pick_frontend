@@ -3,7 +3,6 @@ import Search from "../items/Search"
 import SearchResultsModal from "../items/SearchResultsModal"
 import SigninModal from "../items/SigninModal"
 import SignupModal from "../items/SignupModal"
-// import {useState} from "react"
 
 function Explore({
     initialMovies, 
@@ -27,15 +26,17 @@ function Explore({
     setErrors, 
     username,
     setUsername,
-    currentUser 
+    currentUser,
+    password,
+    setPassword 
 }) {
 
     
     return (
         <div className="container">
-            { signinShow ? <SigninModal show={signinShow} onHide={() => setSigninShow(false)} baseUrl={baseUrl} setUserChoices={setUserChoices} setCurrentUser={setCurrentUser} email={email} setEmail={setEmail} errors={errors} setErrors={setErrors}/> : null }
+            { signinShow ? <SigninModal show={signinShow} onHide={() => setSigninShow(false)} baseUrl={baseUrl} setUserChoices={setUserChoices} setCurrentUser={setCurrentUser} email={email} setEmail={setEmail} errors={errors} setErrors={setErrors} password={password} setPassword={setPassword}/> : null }
 
-            { signupShow ? <SignupModal show={signupShow} onHide={() => setSignupShow(false)} baseUrl={baseUrl} username={username} setUsername={setUsername} email={email} setEmail={setEmail} currentUser={currentUser} setCurrentUser={setCurrentUser} errors={errors} setErrors={setErrors}/> : null }
+            { signupShow ? <SignupModal show={signupShow} onHide={() => setSignupShow(false)} baseUrl={baseUrl} username={username} setUsername={setUsername} email={email} setEmail={setEmail} currentUser={currentUser} setCurrentUser={setCurrentUser} errors={errors} setErrors={setErrors} password={password} setPassword={setPassword}/> : null }
 
             {searchResults ? <SearchResultsModal show={modalShow} onHide={() => setModalShow(false)} setDetailsMovieId={setDetailsMovieId} searchResults={searchResults}/> : null}
             

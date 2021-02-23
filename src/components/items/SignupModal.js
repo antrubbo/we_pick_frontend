@@ -2,23 +2,25 @@ import Modal from 'react-bootstrap/Modal'
 import {useHistory} from "react-router-dom"
 
 function SignupModal (props) {
-    const {onHide, baseUrl, setCurrentUser, username, setUsername, email, setEmail, errors, setErrors} = props
+    const {onHide, baseUrl, setCurrentUser, username, setUsername, email, setEmail, errors, setErrors, password, setPassword} = props
 
     const history = useHistory()
 
     const signupFormData={
         username,
-        email
+        email,
+        password
     }
 
     function setUserStateToQuotes() {
         setUsername("")
         setEmail("")
+        setPassword("")
     }
 
     function onFormSubmit(evt) {
         evt.preventDefault()
-        fetch(`${baseUrl}/users`, {
+        fetch(`${baseUrl}/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -27,16 +29,17 @@ function SignupModal (props) {
         })
         .then(r => r.json())
         .then(userObj => {
-            if(userObj.errors) {
-                setErrors(userObj.errors)
+            if(userObj.error) {
+                setErrors(userObj.error)
                 setUserStateToQuotes()
               } else {
-                alert (`You've been successfully signed up, ${userObj.username}!`)
-                setCurrentUser(userObj)
-                localStorage.setItem('listId', userObj.lists[0].id);
+                alert (`You've been successfully signed up, ${userObj.user.username}!`)
+                setCurrentUser(userObj.user)
+                localStorage.setItem('token', userObj.token)
+                localStorage.setItem('listId', userObj.user.lists[0].id);
                 setErrors("")
                 onHide()
-                history.push(`/user/${userObj.id}/movieslist/${userObj.lists[0].id}`)
+                history.push(`/user/${userObj.user.id}/movieslist/${userObj.user.lists[0].id}`)
               }
         })
     }
@@ -59,7 +62,7 @@ function SignupModal (props) {
             <form onSubmit={onFormSubmit} id="edit-user-form">
                 <input className="edit-input" type="text" placeholder="Username.." value={username} onChange={e => setUsername(e.target.value)}></input>
                 <input className="edit-input" type="text" placeholder="Email.." value={email} onChange={e => setEmail(e.target.value)}></input>
-                <input className="edit-input" type="password" placeholder="Password..." ></input>
+                <input className="edit-input" type="password" placeholder="Password..." value={password} onChange={e => setPassword(e.target.value)}></input>
                 <input className="edit-button" type="submit"></input>
             </form>
         </div>
