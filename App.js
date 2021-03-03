@@ -1,10 +1,10 @@
 import { Route, Switch, useHistory } from "react-router-dom";
 import {useEffect, useState} from "react"
-import Header from "./items/Header"
-import MakePick from "./pages/MakePick"
-import Explore from "./pages/Explore"
-import MoviePage from "./pages/MoviePage"
-import MoviesList from "./pages/MoviesList"
+import Header from "./src/components/items/Header"
+import MakePick from "./src/components/pages/MakePick"
+import Explore from "./src/components/pages/Explore"
+import MoviePage from "./src/components/pages/MoviePage"
+import MoviesList from "./src/components/pages/MoviesList"
 
 
 function App() {
