@@ -8,7 +8,7 @@ import MoviesList from "./pages/MoviesList"
 
 
 function App() {
-  const baseUrl = "http://localhost:3000"
+  const baseUrl = "https://we-pick.herokuapp.com/"
   const history = useHistory()
 
   const [initialMovies, setInitialMovies] = useState([])
