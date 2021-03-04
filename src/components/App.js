@@ -8,7 +8,7 @@ import MoviesList from "./pages/MoviesList"
 
 
 function App() {
-  const baseUrl = "https://we-pick.herokuapp.com/"
+  const baseUrl = "https://we-pick.herokuapp.com"
   const history = useHistory()
 
   const [initialMovies, setInitialMovies] = useState([])
@@ -45,6 +45,7 @@ function App() {
       })
       .then(r => r.json())
       .then(user => {
+        console.log(user)
         setCurrentUser(user)
         setUserChoices(user.movie_choices)
         localStorage.setItem('listId', user.lists[0].id)
