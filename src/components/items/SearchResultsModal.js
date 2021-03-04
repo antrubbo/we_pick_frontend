@@ -8,7 +8,7 @@ function SearchResultsModal(props) {
 
     function onResultClick(r) {
         onHide()
-        fetch("http://localhost:3000/movies", {
+        fetch("https://we-pick.herokuapp.com/movies", {
             method: "POST", 
             headers: {
                 "Content-Type": "application/json"

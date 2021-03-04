@@ -45,7 +45,6 @@ function App() {
       })
       .then(r => r.json())
       .then(user => {
-        console.log(user)
         setCurrentUser(user)
         setUserChoices(user.movie_choices)
         localStorage.setItem('listId', user.lists[0].id)
