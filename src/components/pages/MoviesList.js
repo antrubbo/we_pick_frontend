@@ -62,7 +62,7 @@ function MoviesList({baseUrl, currentUser, setCurrentUser, userChoices, setUserC
                 </div>
     })
 
-    if (currentUser) {
+    if(currentUser) {
         return(
             <Wrapper>
                 <Sidebar>

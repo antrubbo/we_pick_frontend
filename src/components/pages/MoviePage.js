@@ -7,8 +7,6 @@ function MoviePage({baseUrl, detailsMovieId, movieView, setMovieView, currentUse
     const history = useHistory()
     const [showTrailer, setShowTrailer] = useState(false)
     const movieId = localStorage.getItem('id')
-    // console.log(movieView)
-    // console.log(movieId)
 
     useEffect(() => {
         fetch(`${baseUrl}/details`, {
