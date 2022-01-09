@@ -1,6 +1,5 @@
 import { NavLink } from "react-router-dom";
 import '../stylesheets/header.css'
-// import SigninModal from "./SigninModal"
 
 function Header({currentUser, onLogoutClick, onSigninClick, onSignupClick}) {
  

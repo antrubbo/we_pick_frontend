@@ -108,8 +108,6 @@ function MakePick({baseUrl, currentUser, setErrors, errors}) {
     //compare users' lists functionality-------------------------------------------------------|
 
     function onCompareClick(secondUserMovies) {
-        // console.log("second user's movies: ", secondUserMovies)
-        // console.log("first user's movies: ", currentUserMovies)
         const filteredLists = currentUserMovies.filter(mov => secondUserMovies.some(secondUserMovie => mov.id === secondUserMovie.id))
         // returns the movies in common
         if(filteredLists.length !== 0) {

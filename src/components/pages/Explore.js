@@ -30,8 +30,6 @@ function Explore({
     password,
     setPassword 
 }) {
-
-    
     return (
         <div className="container">
             { signinShow ? <SigninModal show={signinShow} onHide={() => setSigninShow(false)} baseUrl={baseUrl} setUserChoices={setUserChoices} setCurrentUser={setCurrentUser} email={email} setEmail={setEmail} errors={errors} setErrors={setErrors} password={password} setPassword={setPassword}/> : null }
