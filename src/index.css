@@ -58,11 +58,11 @@
   font-family: 'Carter One', cursive;
   color: #264653;
 }
-
+/* 
 .carousel-movie-poster {
-  /* width: 300px; */
+  width: 300px;
   margin-left: 498px;
-}
+} */
 
 .carousel-movie-poster:hover {
   opacity: 0.5
