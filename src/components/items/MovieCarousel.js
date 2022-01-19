@@ -16,7 +16,8 @@ function MovieCarousel ({initialMovies, setDetailsMovieId}) {
             <img
               id={m.id}
               search_id={m.search_id}
-              className="carousel-movie-poster"
+              // className="carousel-movie-poster"
+              className="d-block w-100"
               src={`https://themoviedb.org/t/p/w300_and_h450_bestv2${m.poster_path}`}
               alt={m.title}
             />
