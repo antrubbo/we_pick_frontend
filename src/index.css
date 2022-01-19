@@ -58,15 +58,18 @@
   font-family: 'Carter One', cursive;
   color: #264653;
 }
-
-.carousel-movie-poster {
-  /* width: 300px; */
+.d-block img{
   margin: auto;
-} 
-
-.carousel-movie-poster:hover {
-  opacity: 0.5
 }
+
+/* .carousel-movie-poster { */
+  /* width: 300px; */
+  /* margin: auto;
+}  */
+
+/* .carousel-movie-poster:hover {
+  opacity: 0.5
+} */
 
 
 /* Explore Movie Search------------------------------------------------------------------- */
