@@ -13,16 +13,19 @@
 }
 
 .welcome-container{
-  /* background-image: url("http://res.cloudinary.com/ybmedia/image/upload/c_crop,h_1125,w_2000,x_0,y_21/c_fill,f_auto,h_495,q_auto,w_880/v1/m/a/c/acd9c520c19769ec1459e9ed234261b0b7fdc578/20-facts-might-know-et-extraterrestrial.jpg");
+  background-image: url("http://res.cloudinary.com/ybmedia/image/upload/c_crop,h_1125,w_2000,x_0,y_21/c_fill,f_auto,h_495,q_auto,w_880/v1/m/a/c/acd9c520c19769ec1459e9ed234261b0b7fdc578/20-facts-might-know-et-extraterrestrial.jpg");
   display: flex;
-  align-self: center; */
-  /* width: 800px; 1300 */
-  /* height: 495px; 320 */
-  /* flex-direction: column;
+  align-self: center;
+  width: 800px; /* 1300 */
+  height: 320px; /* 320 */
+  flex-direction: column;
   opacity: 0.9;
-  font-family: 'Carter One', cursive; */
+  font-family: 'Carter One', cursive;
+  background-repeat: no-repeat;
+  background-position: inherit;
+}
 
-  background-image: url("http://res.cloudinary.com/ybmedia/image/upload/c_crop,h_1125,w_2000,x_0,y_21/c_fill,f_auto,h_495,q_auto,w_880/v1/m/a/c/acd9c52…/20-facts-might-know-et-extraterrestrial.jpg");
+ /* background-image: url("http://res.cloudinary.com/ybmedia/image/upload/c_crop,h_1125,w_2000,x_0,y_21/c_fill,f_auto,h_495,q_auto,w_880/v1/m/a/c/acd9c52…/20-facts-might-know-et-extraterrestrial.jpg");
   align-self: center;
   display: flex;
   flex-direction: column;
@@ -31,8 +34,7 @@
   opacity: .9;
   font-family: "Carter One",cursive;
   background-repeat: no-repeat;
-  background-position: inherit;
-}
+  background-position: inherit; */
 
 #welcome-h2 {
   margin-top: 50px;
